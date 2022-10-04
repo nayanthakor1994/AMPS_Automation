@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="TestSuite"  >
+	<test name="TestCases">
+	<classes>
+<!-- 			<class name="testsuit.Project.AddProjectTest" /> -->
+<!-- 			<class name="testsuit.Project.AddProjectCityStateTest" /> -->
+<!-- 			<class name="testsuit.Project.UpdateProjectSettingAndMaintanceTest" /> -->
+<!-- 			<class name="testsuit.Project.AddInterconnectionInformationTest" /> -->
+<!-- 			<class name="testsuit.Project.AddProjectWorkflowTest" /> -->
+		</classes>
+	</test>
+	
+	
+	<test name="TestCases2" >
+	<classes>
+			<class name="testsuit.Project.AddProjectWorkflowTest" />
+		</classes>
+	</test>
+	
+	
+
+</suite>
