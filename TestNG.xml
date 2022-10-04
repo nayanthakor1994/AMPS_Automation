@@ -5,7 +5,7 @@
 <suite name="TestSuite"  >
 	<test name="TestCases">
 	<classes>
-<!-- 			<class name="testsuit.Project.AddProjectTest" /> -->
+ 			<class name="testsuit.Project.AddProjectTest" /> 
 <!-- 			<class name="testsuit.Project.AddProjectCityStateTest" /> -->
 <!-- 			<class name="testsuit.Project.UpdateProjectSettingAndMaintanceTest" /> -->
 <!-- 			<class name="testsuit.Project.AddInterconnectionInformationTest" /> -->
