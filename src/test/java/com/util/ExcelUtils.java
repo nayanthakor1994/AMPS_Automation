@@ -102,15 +102,18 @@ public class ExcelUtils {
 	public static Object[][] getURLFromSheet(String fileName, String SheetName, String testCaseName) throws Exception {
 		String[][] excelData = ExcelUtils.getExcelData(fileName, SheetName);
 		List<String> exp = new ArrayList<String>();
+		List<String> env = new ArrayList<String>();
 		for (int i=0;i<excelData.length;i++){
 			if(excelData[i][0].equals(testCaseName)) {
 				exp.add(excelData[i][1]);
+				env.add(excelData[i][2]);
 			}
 		}
-		Object[][] bojData = new Object[exp.size()][2];
+		Object[][] bojData = new Object[exp.size()][3];
 		for (int i=0;i<bojData.length;i++){
 			bojData[i][0] = testCaseName;
 			bojData[i][1] = exp.get(i);
+			bojData[i][2] = env.get(i);
 		}
 		
 		return bojData;

@@ -134,10 +134,7 @@ public class AddProjectPage extends BasePage{
 		commonFunction.clickOnArchieveButton();
 		verifySummaryALT();
 		
-		
-		
-		
-		
 	}
-
+	
+	
 }

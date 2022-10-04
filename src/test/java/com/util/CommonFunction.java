@@ -93,6 +93,8 @@ public class CommonFunction extends BasePage {
 	}
 	
 	
+	By navToolsMenu = By.xpath("//a//span[@class='rmText rmExpandDown' and contains(text(),'Tools')]");
+	By navToolsMyDashboard = By.xpath("//a//span[contains(text(),'My Dashboard')]");
 	By navProjectMenu = By.xpath("*//a//span[@class='rmText rmExpandDown' and contains(text(),'Project')] ");
 	By navProjectInformation = By.xpath("*//a//span[contains(text(),'Project Information')] ");
 	By navProjectDetails = By.xpath("*//a//span[contains(text(),'Project Details')] ");
@@ -124,6 +126,14 @@ public class CommonFunction extends BasePage {
 			ReportsClass.logStat(Status.FAIL, "Step 1 : User cannot see the option in Menu !!!");
 		}
 		Assert.assertTrue(tabProjectDetails.contains("Project Details"), "User cannot see the option in Menu !!!");
+		log("navigating to create new Project");
+	}
+	
+	public void navigateToMyDashboard() {
+		util.waitUntilElementDisplay(navToolsMenu);
+		util.click(navToolsMenu);
+		util.waitUntilElementDisplay(navToolsMyDashboard);
+		util.click(navToolsMyDashboard);
 		log("navigating to create new Project");
 	}
 	

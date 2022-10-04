@@ -11,6 +11,7 @@ public class Excel {
 	public static final String AMPSTestCase = "AMPSTestCase";
 	public static final String Login = "Login";
 	public static final String ProjectInformation = "ProjectInformation";
+	public static final String ProjectApproval = "ProjectApproval";
 	public static final String ProjectSettingsAndMaintence = "ProjectSettingsAndMaintence";
 	public static final String InterconnectionInformation = "InterconnectionInformation";
 	public static final String CountryState = "CountryState";
@@ -44,5 +45,14 @@ public class Excel {
 	public static final String Unit = "Unit";
 										
 
+	/**
+	 * Add column names for add project approvals
+	 */
+	public static final String ApprovalType = "ApprovalType";
+	public static final String Template = "Template";
+	public static final String ReportFormat = "ReportFormat";
+	public static final String DocCategory = "DocCategory";
+	public static final String DocComments = "DocComments";
+	public static final String ListOfTrack = "ListOfTrack";
 	
 }
