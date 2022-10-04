@@ -18,11 +18,12 @@ import com.util.ReadPropertyFile;
 import com.util.ReportsClass;
 
 import page.Common.LoginPage;
+import pages.Project.AddProjectPage;
 import pages.Project.UpdateProjectSettingAndMaintancePage;
 
 @Listeners(com.listeners.MyListeners.class)
 public class UpdateProjectSettingAndMaintanceTest extends BasePage {
-	LoginPage objLogin = new LoginPage(driver);
+	LoginPage objLogin;
 	ReadPropertyFile readPro = new ReadPropertyFile();
 	UpdateProjectSettingAndMaintancePage objUpdateProject;
 	Map<String, String> map = new HashMap<String, String>();
@@ -41,8 +42,17 @@ public class UpdateProjectSettingAndMaintanceTest extends BasePage {
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
-		
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), "Project Settings And Maintence", "Update");
+		String testcaseName = null;
+		if(isALT) {
+			testcaseName = "Update_ProjectMaintence_ALT";
+		} else if (isDOT) {
+			testcaseName = "Update_ProjectMaintence_DOT";
+		} else if (isROW) {
+			testcaseName = "Update_ProjectMaintence_ROW";
+		}
+		log("Data picked : " + testcaseName);
+		log("navigating to create UpdateProjectSettingMaintence");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), "ProjectSettingsAndMaintence", testcaseName);
 		objUpdateProject.updateProjectSettingAndMaintence(map);
 	}
 

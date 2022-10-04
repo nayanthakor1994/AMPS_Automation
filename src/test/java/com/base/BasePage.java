@@ -123,7 +123,7 @@ public class BasePage extends CommonConstant {
 			CommonConstant.isALT = true;
 		} else if (url.toLowerCase().contains("dot")) {
 			CommonConstant.isDOT = true;
-		} else if (url.toLowerCase().contains("row")) {
+		} else if (url.toLowerCase().contains("pipe")) {
 			CommonConstant.isROW = true;
 		}
 	}

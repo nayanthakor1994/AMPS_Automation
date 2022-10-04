@@ -73,6 +73,7 @@ public class TestUtil extends BasePage {
 	}
 
 	public void selectDropDownValue(By xpath, String value) {
+		waitUntilElementDisplay(xpath);
 		click(xpath);
 		waitFor(2000);
 		By drpValue = By.xpath("//ul//li[text()='" + value + "']");
@@ -108,6 +109,7 @@ public class TestUtil extends BasePage {
 			inputField.sendKeys(text);
 		} catch (Exception e) {
 			// report error
+			System.out.println("Element not present "+inputField);
 			e.printStackTrace();
 		}
 	}
@@ -120,6 +122,7 @@ public class TestUtil extends BasePage {
 	 */
 	public void inputText(By locator, String text) {
 		try {
+			waitUntilElementDisplay(locator);
 			WebElement inputField = getElement(locator);
 			inputField.click();
 			clearInputField(inputField);

@@ -104,11 +104,9 @@ public class CommonFunction extends BasePage {
 	// Add Button
 	By topProjectMenu = By.xpath("//img[@id='ctl00_ConPHLeftTop_prjMenu']");
 	By btnAdd = By.xpath("*//a//span[@class='rmText' and contains(text(),'Add')]");
-	By btnArchieve = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_btnArchive']");
-	By btnArchieveDot = By.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnArchive']");
-	By btnUnArchieve = By.xpath("//input[@name='ctl00$ConPHRightTop$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
-	By btnUnArchieveDot = By.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
-	By btnSave = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_btnSaveProject']");
+	By btnArchieve = By.xpath("//input[contains(@id,'btnArchive')]");
+	By btnUnArchieve = By.xpath("//input[contains(@id,'btnUnarchive')]");
+	By btnSave = By.xpath("//input[contains(@id,'btnSaveProject')]");
 	public void navigateToProjectDeails() {
 		util.waitUntilElementDisplay(navProjectMenu);
 		util.click(navProjectMenu);
@@ -162,5 +160,9 @@ public class CommonFunction extends BasePage {
 	public void clickOnSaveButton() {
 		util.waitUntilElementDisplay(btnSave);
 		util.click(btnSave);
+	}
+
+	public boolean checkNA(String value) {
+		return value.equals(NA);
 	}
 }
