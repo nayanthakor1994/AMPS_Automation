@@ -28,18 +28,13 @@ public class AddProjectPage extends BasePage {
 	By txtProjectNumber = By.xpath("(//input[contains(@id,'radPrjNum')])[1]");
 	By drpProjectType = By.xpath("(//input[contains(@id,'ProjType')])[1]");
 	By txtAbbreviation = By.xpath("//input[contains(@id,'OBJPROJECTINFO_ABBREVIATION')][1]");
-	By drpArea = By.xpath(
-			"//input[contains(@id,'yalPrjArea_radYALDropDownList_Input')]");
+	By drpArea = By.xpath("//input[contains(@id,'yalPrjArea_radYALDropDownList_Input')]");
 	By btnSave = By.xpath("//input[contains(@id,'btnSaveProject')]");
 	By btnArchieve = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_btnArchive']");
-	By drpTemporaryRow = By.xpath(
-			"//input[contains(@name,'yalTempROWWidth$radYALDropDownList')]");
-	By drpPermanentRow = By.xpath(
-			"//input[contains(@name,'yalPermROWWidth_radYALDropDownList')]");
-	By drpUnitRow = By.xpath(
-			"//input[contains(@name,'PERMROW_WIDTH_UNIT$radYALDropDownList')]");
+	By drpTemporaryRow = By.xpath("//input[contains(@name,'yalTempROWWidth$radYALDropDownList')]");
+	By drpPermanentRow = By.xpath("//input[contains(@name,'yalPermROWWidth_radYALDropDownList')]");
+	By drpUnitRow = By.xpath("//input[contains(@name,'PERMROW_WIDTH_UNIT$radYALDropDownList')]");
 
-	By archieveokPopupFrame = By.xpath("//iframe[contains(@name,'confirm')]");
 	By archieveOk = By.xpath("//a[contains(@onClick,'confirm')][1]");
 	By archieveOkbutton = By.xpath("(//div[contains(@id,'confirm')])[1]");
 	By btnUnArchieve = By.xpath("//input[@name='ctl00$ConPHRightTop$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
@@ -51,13 +46,17 @@ public class AddProjectPage extends BasePage {
 	By txtProjectNameSummary = By.xpath("(//*[contains(text(),'Project Name')]/following::td/strong)[1]");
 	By txtProjectCodeSummary = By.xpath("(//*[contains(text(),'Project #')]/following::td/strong)[1]");
 
+	By btnArchieveDot = By
+			.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnArchive']");
+	By archieveokPopupFrame = By.xpath("//iframe[contains(@name,'confirm')]");
+	By btnUnArchieveDot = By
+			.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
+
 	public void verifySummaryALT() {
 		String getStrProjectCode = driver
-				.findElement(By.xpath("(//input[contains(@id,'OBJPROJECTINFO_radPrjNum')])[1]"))
-				.getAttribute("value");
+				.findElement(By.xpath("(//input[contains(@id,'OBJPROJECTINFO_radPrjNum')])[1]")).getAttribute("value");
 		String getStrProjectName = driver
-				.findElement(By.xpath("(//input[contains(@id,'OBJPROJECTINFO_radPrjName')])[1]"))
-				.getAttribute("value");
+				.findElement(By.xpath("(//input[contains(@id,'OBJPROJECTINFO_radPrjName')])[1]")).getAttribute("value");
 
 		String getProjectCodeSummary = driver
 				.findElement(By.xpath("(//*[contains(text(),'Project')]/following::td/strong)[1]")).getText();
@@ -81,9 +80,8 @@ public class AddProjectPage extends BasePage {
 
 	}
 
-	public void setProjectNumber(String value) {
-		if (!commonFunction.checkNA(value))
-			util.inputText(txtProjectNumber, util.randomNumber());
+	public void setProjectNumber() {
+		util.inputText(txtProjectNumber, util.randomNumber());
 	}
 
 	public void setProjectName(String value) {
@@ -143,11 +141,29 @@ public class AddProjectPage extends BasePage {
 			util.inputText(drpUnitRow, value);
 		util.pressENTERkey();
 	}
+
+	public void clickOnArchieveButtonROW() throws InterruptedException {
+		Thread.sleep(1000);
+		util.waitUntilElementDisplay(btnArchieveDot);
+		util.click(btnArchieveDot);
+		Thread.sleep(1000);
+		util.waitUntilElementDisplay(archieveOk);
+		util.click(archieveOk);
+
+		if (util.isElementPresent(btnUnArchieveDot)) {
+			System.out.println("UnArchieve Present !!!");
+			ReportsClass.logStat(Status.PASS, "UnArchieve Present !!!");
+		} else {
+			System.out.println("UnArchieve not Present !!!");
+			ReportsClass.logStat(Status.FAIL, "UnArchieve not Present !!!");
+		}
+	}
+
 	public void addProjectInformation(Map<String, String> map) throws InterruptedException {
 		commonFunction.navigateToProjectDeails();
 		commonFunction.clickOnAddButton();
 		setProjectName(map.get(Excel.ProjectName));
-		setProjectNumber(map.get(Excel.ProjectNumber));
+		setProjectNumber();
 		setProjectType(map.get(Excel.ProjectType));
 		setAbbreviation(map.get(Excel.Abbreviation));
 		setArea(map.get(Excel.Area));
@@ -160,6 +176,5 @@ public class AddProjectPage extends BasePage {
 		commonFunction.clickOnArchieveButton();
 		verifySummaryALT();
 	}
-	
-	
+
 }

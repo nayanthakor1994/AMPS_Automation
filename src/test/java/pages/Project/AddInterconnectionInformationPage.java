@@ -25,22 +25,26 @@ public class AddInterconnectionInformationPage extends BasePage {
 		commonFunction = new CommonFunction(driver);
 	}
 
-	public void setInterconnectionGrid(String interconnectionGrid) {
-		util.inputText(drpInterconnectionGrid, interconnectionGrid);
+	public void setInterconnectionGrid(String value) {
+		if (!commonFunction.checkNA(value))
+		util.inputText(drpInterconnectionGrid, value);
 		util.pressENTERkey();
 	}
 
-	public void setCost(String cost) {
-		util.inputText(txtCost, cost);
+	public void setCost(String value) {
+		if (!commonFunction.checkNA(value))
+		util.inputText(txtCost, value);
 	}
 
-	public void updateInterconnectionGrid(String updateName) {
-		util.inputText(updateInterConnectionName, updateName);
+	public void updateInterconnectionGrid(String value) {
+		if (!commonFunction.checkNA(value))
+		util.inputText(updateInterConnectionName, value);
 		util.pressENTERkey();
 	}
 
-	public void updateCost(String updateCost) {
-		util.inputText(editCost, updateCost);
+	public void updateCost(String value) {
+		if (!commonFunction.checkNA(value))
+		util.inputText(editCost, value);
 	}
 
 	public void navigateToProjectDetails() {
@@ -120,26 +124,28 @@ public class AddInterconnectionInformationPage extends BasePage {
 	}
 
 	public void updateInterconnectionInformation(Map<String, String> map) {
-		By viewEditBtn = By.xpath(String.format(editInterconnection, CommonConstant.addedName));
+		By viewEditBtn = By.xpath(String.format(editInterconnection, map.get("Interconnection Grid")));
 		util.waitUntilElementDisplay(viewEditBtn);
 		util.click(viewEditBtn);
 
-		updateInterconnectionGrid(map.get("Interconnection Grid"));
-		updateCost(map.get("Cost"));
+		updateInterconnectionGrid(map.get("EditInterconnection Grid"));
+		updateCost(map.get("EditCost"));
 		util.waitUntilElementDisplay(btnUpdateInterconnection);
 		util.click(btnUpdateInterconnection);
 
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
 			ReportsClass.logStat(Status.PASS,
-					map.get("Interconnection Grid") + ": Interconnection information updated successfully");
+					map.get("EditInterconnection Grid") + ": Interconnection information updated successfully");
 		} else {
 			ReportsClass.logStat(Status.FAIL,
-					map.get("Interconnection Grid") + ": Interconnection information does not updated successfully");
+					map.get("EditInterconnection Grid") + ": Interconnection information does not updated successfully");
 		}
-		Assert.assertTrue(util.isElementPresent(String.format(tableRecord, map.get("Interconnection Grid"))));
-		CommonConstant.addedName = map.get("Interconnection Grid");
-		CommonConstant.addedCost = map.get("Cost");
+		Assert.assertTrue(util.isElementPresent(String.format(tableRecord, map.get("EditInterconnection Grid"))));
+		/*
+		 * CommonConstant.addedName = map.get("EditInterconnection Grid");
+		 * CommonConstant.addedCost = map.get("EditCost");
+		 */
 		util.waitFor(2000);
 
 	}

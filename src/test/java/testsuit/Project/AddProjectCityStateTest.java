@@ -16,14 +16,12 @@ import com.util.ReadPropertyFile;
 import page.Common.LoginPage;
 import pages.Project.AddProjectCityStatePage;
 
-
 @Listeners(com.listeners.MyListeners.class)
 public class AddProjectCityStateTest extends BasePage {
 	LoginPage objLogin;
 	ReadPropertyFile readPro = new ReadPropertyFile();
 	AddProjectCityStatePage objCityState;
 	Map<String, String> map = new HashMap<String, String>();
-	
 
 	@BeforeClass
 	public void setup() throws Exception {
@@ -33,18 +31,19 @@ public class AddProjectCityStateTest extends BasePage {
 	}
 
 	@Test(dataProvider = "data-provider")
-	public void add_Project_State_Country_TC_02(String testName, String appURL) throws Exception {
-		setEnvironment(appURL);
+	public void add_Project_State_Country_TC_02(String testName, String appURL, String env) throws Exception {
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
+		String testcaseName = "AddCountryState" + env;
+		log("Data picked : " + testcaseName);
 		log("navigating to create City and State");
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), "CountryState", "New");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.CountryState, testcaseName);
 		objCityState.addStateAndContryInformation(map);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName),"CountryState","Update");
 		objCityState.updateStateAndContryInformation(map);
 
 	}
+
 	@DataProvider(name = "data-provider")
 	public Object[][] getTestcaseData() throws Exception {
 		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environment");

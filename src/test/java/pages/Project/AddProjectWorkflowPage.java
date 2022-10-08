@@ -164,6 +164,7 @@ public class AddProjectWorkflowPage extends BasePage {
 	}
 	
 	public void deleteListOfTract() {
+		util.waitForWebElementToBePresent(btnDeleteListTract);
 		util.click(btnDeleteListTract);
 		util.waitFor(2000);
 		util.click(btnDeleteOk);
@@ -176,7 +177,7 @@ public class AddProjectWorkflowPage extends BasePage {
 	public void clickOnAddNewRecord() {
 		util.click(addProjectApprovals);
 	}
-	public void addNewWorkflow(Map<String, String> map) {
+	public void addNewWorkflow(Map<String, String> map) throws InterruptedException {
 		if(!util.isElementVisible(addProjectApprovals)) {
 			util.click(projectApprovals);
 			if(!util.isElementVisible(addProjectApprovals)) {
@@ -237,9 +238,12 @@ public class AddProjectWorkflowPage extends BasePage {
 		clickOnGoProject();
 		selectListOfTrack(map.get(Excel.ListOfTrack));
 		clickOnListOfTract();
+		Thread.sleep(5000);
 		refreshListOfTract();
+		Thread.sleep(5000);
 		Assert.assertEquals(getListOfTractMessage(), "Requested association created successfully", "Success message is mismatch");
 		deleteListOfTract();
+		Thread.sleep(5000);
 		Assert.assertEquals(getListTractUsrMessage(), "Changes saved successfully!", "Success message is mismatch");
 
 		

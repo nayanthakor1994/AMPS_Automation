@@ -22,7 +22,6 @@ public class AddProjectTest extends BasePage {
 	AddProjectPage objAddProject;
 	ReadPropertyFile readPro = new ReadPropertyFile();
 	Map<String, String> map = new HashMap<String, String>();
-	
 
 	@BeforeClass
 	public void setup() throws Exception {
@@ -30,39 +29,24 @@ public class AddProjectTest extends BasePage {
 		objLogin = new LoginPage(driver);
 		objAddProject = new AddProjectPage(driver);
 	}
-	
+
 	@Test(dataProvider = "data-provider")
-	public void add_Project_TC_01(String testName, String appURL) throws Exception {
-		setEnvironment(appURL);
+	public void add_Project_TC_01(String testName, String appURL, String env) throws Exception {
 		navigateToApplication(appURL);
-		String URLIndex = null;
-		if(isALT) {
-			URLIndex = "1";
-		} else if (isDOT) {
-			URLIndex = "2";
-		} else if (isROW) {
-			URLIndex = "3";
-		}
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, URLIndex);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
-		String testcaseName = null;
-		if(isALT) {
-			testcaseName = "AddProjectALT";
-		} else if (isDOT) {
-			testcaseName = "AddProjectDOT";
-		} else if (isROW) {
-			testcaseName = "AddProjectROW";
-		}
+		String testcaseName = "AddProject" + env;
 		log("Data picked : " + testcaseName);
 		log("navigating to create new Project");
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), "ProjectInformation", testcaseName);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectInformation,
+				testcaseName);
 		objAddProject.addProjectInformation(map);
-
 	}
+
 	@DataProvider(name = "data-provider")
 	public Object[][] getTestcaseData() throws Exception {
 		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environment");
-	
+
 	}
 
 }

@@ -40,4 +40,8 @@ public class ReportsClass {
 		extent = new ExtentReports();
 		extent.attachReporter(htmlReporter);
 	}
+	
+	public static void attachScreenshot(String screenshot, String name) {
+		test.addScreenCaptureFromBase64String(screenshot, name);
+	}
 }

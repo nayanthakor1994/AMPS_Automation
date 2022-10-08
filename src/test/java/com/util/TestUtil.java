@@ -243,8 +243,13 @@ public class TestUtil extends BasePage {
 	 * @param xpath
 	 */
 	public void waitUntilElementDisplay(By locator) {
-		System.out.println("Waiting for : " + locator);
-		getElement(Condition.isDisplayed, locator, 20);
+		try {
+			System.out.println("Waiting for : " + locator);
+			getElement(Condition.isDisplayed, locator, 20);
+		} catch (Exception e) {
+			System.out.println("Element not present :");
+			e.printStackTrace();
+		}
 	}
 
 	public List<WebElement> getWebElements(By locator) {

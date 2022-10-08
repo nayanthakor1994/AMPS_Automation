@@ -95,10 +95,10 @@ public class BasePage extends CommonConstant {
 		return driver;
 	}
 
-//	@AfterClass
-//	public void tearDown() {
-//		driver.quit();
-//	}
+	@AfterClass
+	public void tearDown() {
+		driver.quit();
+	}
 
 	@BeforeSuite
 	public void beforeSuite() {

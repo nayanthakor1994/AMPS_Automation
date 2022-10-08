@@ -39,12 +39,13 @@ public class AddProjectWorkflowTest extends BasePage {
 	}
 
 	@Test(dataProvider = "data-provider")
-	public void Add_Project_TC_01(String testName, String appURL, String env) throws Exception {
+	public void Add_Project_TC_09(String testName, String appURL, String env) throws Exception {
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
 		String testcaseName = "ProjectApproval" + env;
 		log("Data picked : " + testcaseName);
+		log("Nevigate to Add Workflow");
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectApproval,
 				testcaseName);
 		

@@ -105,6 +105,7 @@ public class CommonFunction extends BasePage {
 	By topProjectMenu = By.xpath("//img[@id='ctl00_ConPHLeftTop_prjMenu']");
 	By btnAdd = By.xpath("*//a//span[@class='rmText' and contains(text(),'Add')]");
 	By btnArchieve = By.xpath("//input[contains(@id,'btnArchive')]");
+	By archieveOk = By.xpath("//a[contains(@onClick,'confirm')][1]");
 	By btnUnArchieve = By.xpath("//input[contains(@id,'btnUnarchive')]");
 	By btnSave = By.xpath("//input[contains(@id,'btnSaveProject')]");
 	public void navigateToProjectDeails() {
@@ -144,9 +145,15 @@ public class CommonFunction extends BasePage {
 		util.waitUntilElementDisplay(btnAdd);
 		util.click(btnAdd);
 	}
-	public void clickOnArchieveButton() {
+	public void clickOnArchieveButton() throws InterruptedException {
 		util.waitUntilElementDisplay(btnArchieve);
 		util.click(btnArchieve);
+		Thread.sleep(1000);
+		if(util.isElementPresent(archieveOk))
+		{
+		util.waitUntilElementDisplay(archieveOk);
+		util.click(archieveOk);
+		}
 		//util.waitUntilElementDisplay(btnUnArchieve);
 		if(util.isElementPresent(btnUnArchieve)){
 			System.out.println("UnArchieve Present !!!");

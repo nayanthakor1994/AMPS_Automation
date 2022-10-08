@@ -38,24 +38,25 @@ public class AddInterconnectionInformationTest extends BasePage {
 	}
 
 	@Test(dataProvider = "data-provider")
-	public void add_An_Interconnection_Information_TC_04(String testName, String appURL) throws Exception {
-		setEnvironment(appURL);
+	public void add_An_Interconnection_Information_TC_04(String testName, String appURL, String env) throws Exception {
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
+		String testcaseName = "AddInterconnection" + env;
+		log("Data picked : " + testcaseName);
 		log("navigating to add Interconnection Information");
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), "InterconnectionInformation", "New");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), Excel.InterconnectionInformation, testcaseName);
 		objAddInterconnectionInformation.addInterconnectionInformation(map);
 
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), "InterconnectionInformation",
-				"Update");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), Excel.InterconnectionInformation,
+				testcaseName);
 		objAddInterconnectionInformation.updateInterconnectionInformation(map);
 
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), "InterconnectionInformation",
-				"Update");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), Excel.InterconnectionInformation,
+				testcaseName);
 		objAddInterconnectionInformation.updateInterconnectionDocument(map);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), "InterconnectionInformation",
-				"Update");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), Excel.InterconnectionInformation,
+				testcaseName);
 		objAddInterconnectionInformation.deleteInterconnection(map);
 		
 
