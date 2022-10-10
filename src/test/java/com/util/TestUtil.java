@@ -13,7 +13,6 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -28,7 +27,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.base.BasePage;
 
 public class TestUtil extends BasePage {
-//	Logger logger = Logger.getLogger("Test");
 	WebDriverWait wait;
 
 	public TestUtil(WebDriver driver) {
@@ -67,8 +65,12 @@ public class TestUtil extends BasePage {
 			waitUntilElementDisplay(xpath);
 			getElement(Condition.isClickable, xpath, 60).click();
 		} catch (Exception e) {
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("arguments[0].click();", getElement(Condition.isClickable, xpath, 60));
+			try {
+				JavascriptExecutor executor = (JavascriptExecutor) driver;
+				executor.executeScript("arguments[0].click();", getElement(Condition.isClickable, xpath, 60));
+			} catch (Exception e1) {
+				throw e1;
+			}
 		}
 	}
 
@@ -91,8 +93,12 @@ public class TestUtil extends BasePage {
 			System.out.println("Waiting for : " + xpath);
 			getElement(Condition.isClickable, By.xpath(xpath), 60).click();
 		} catch (Exception e) {
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("arguments[0].click();", getElement(Condition.isClickable, By.xpath(xpath), 60));
+			try {
+				JavascriptExecutor executor = (JavascriptExecutor) driver;
+				executor.executeScript("arguments[0].click();", getElement(Condition.isClickable, By.xpath(xpath), 60));
+			} catch (Exception e1) {
+				throw e1;
+			}
 		}
 	}
 
@@ -108,9 +114,9 @@ public class TestUtil extends BasePage {
 			clearInputField(inputField);
 			inputField.sendKeys(text);
 		} catch (Exception e) {
-			// report error
 			System.out.println("Element not present "+inputField);
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -128,7 +134,7 @@ public class TestUtil extends BasePage {
 			clearInputField(inputField);
 			inputField.sendKeys(text);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -166,7 +172,7 @@ public class TestUtil extends BasePage {
 		try {
 			ele = getElement(Condition.isDisplayed, value, 60);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
 		return ele;
 	}
@@ -234,7 +240,11 @@ public class TestUtil extends BasePage {
 	 */
 	public void waitUntilElementPresent(By locator) {
 		System.out.println("Waiting for : " + locator);
-		getElement(Condition.isPresent, locator, 60);
+		try {
+			getElement(Condition.isPresent, locator, 60);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -248,7 +258,7 @@ public class TestUtil extends BasePage {
 			getElement(Condition.isDisplayed, locator, 20);
 		} catch (Exception e) {
 			System.out.println("Element not present :");
-			e.printStackTrace();
+			throw e;
 		}
 	}
 

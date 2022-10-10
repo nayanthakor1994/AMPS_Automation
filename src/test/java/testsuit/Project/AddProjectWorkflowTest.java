@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 import com.base.Excel;
 import com.util.CommonFunction;
@@ -58,15 +59,30 @@ public class AddProjectWorkflowTest extends BasePage {
 		//Step21 : Repeat steps from 2 to 18
 		
 //		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectApproval,
-//				NewTestData);
+//				"NewTestData");
 //		projectWorkflow.addNewWorkflow(map);
 //		projectWorkflow.submitTheFormForReview();
 //		projectWorkflow.closeApprovalForm();
 //		projectWorkflow.verifyStoredRecord(map.get(Excel.ApprovalType));
 		
-		commonFunction.navigateToMyDashboard();
-		dashboardPage.navigateToRequestedDocumentTab();
-		dashboardPage.isJobCreated("Requested");
+		try {
+			commonFunction.navigateToMyDashboard();
+			log("STEP 23: Click on submit for review on the form", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 23: Click on submit for review on the form", Status.FAIL);
+		}
+		try {
+			dashboardPage.navigateToRequestedDocumentTab();
+			log("STEP 24: Click on the requested documents tab", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 24: Click on the requested documents tab", Status.FAIL);
+		}
+		try {
+			dashboardPage.isJobCreated("Requested");
+			log("STEP 25: The Job created is listed under the tab", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 25: The Job created is listed under the tab", Status.FAIL);
+		}
 		
 
 	}

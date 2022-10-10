@@ -3,7 +3,9 @@ package com.listeners;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -13,41 +15,93 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.TestNGException;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
+import com.base.DriverFactory;
 import com.util.ReportsClass;
+
+import extentReports.ExtentManager;
+import extentReports.ExtentTestManager;
 
 public class MyListeners extends BasePage implements ITestListener {
 
+	private static ExtentReports extent = ExtentManager.getInstance();
+	int extentPassCount = 0;
+	int extentFailCount = 0;
+	int extentTestTotal = 0;
+	int extentTestSkipped = 0;
+	
 	@Override
 	public void onTestStart(ITestResult result) {
 		System.out.println("Test Case Started : "+result.getName());
 		ReportsClass.initialisation(result.getName());
+		
+		try {
+			ExtentTestManager.createTest(result.getName());
+			ExtentTestManager.info(result.getMethod().getMethodName() + " Started...");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
 		System.out.println("Test Case Passed : "+result.getName());
 		ReportsClass.logStat(Status.PASS, result.getMethod().getMethodName() + " Testcase passed...");
+		
+		ExtentTestManager.pass(result.getMethod().getMethodName() + " Passed...");
+		extentPassCount++;
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
 		System.out.println("Test Case Failed : "+result.getName());
-		ReportsClass.logStat(Status.FAIL, result.getMethod().getMethodName() + " Testcase failed...");
 		ReportsClass.logStat(Status.FAIL, "Failed with " + result.getThrowable());
 		try {
-			getScreenshotAsBase64(driver);
+			ReportsClass.attachScreenshot(getBase64ScreenshotString(getDriver()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		ReportsClass.logStat(Status.FAIL, result.getMethod().getMethodName() + " Testcase failed...");
+		
+		
+		try {
+			ExtentTestManager.fail(result.getMethod().getMethodName()+ " failed because of "+ result.getThrowable());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		extentFailCount++;
+		WebDriver driverWithFailure = DriverFactory.getTLDriver();
+		try {
+			ExtentTestManager.info("Adding screen capture...");
+			ExtentTestManager.getTest().addScreenCaptureFromBase64String(getBase64ScreenshotString(driverWithFailure), result.getMethod().getMethodName());
+		} catch (Exception e) {
+			e.printStackTrace();
+			ExtentTestManager.fail("Failed to get screenshot");
 		}
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		System.out.println("Test Case Skipped : "+result.getName());
+		
+		try {
+			ExtentTestManager.createTest(result.getMethod().getMethodName(), result.getMethod().getDescription());
+			ExtentTestManager.skip(result.getMethod().getMethodName()+ " skipped because of "+ result.getThrowable());
+			extentTestSkipped++;
+			try {
+				ExtentTestManager.info("Adding screen capture...");
+				ExtentTestManager.getTest().addScreenCaptureFromBase64String(getBase64ScreenshotString(DriverFactory.getTLDriver()), result.getMethod().getMethodName());
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				ExtentTestManager.fail("Failed to get screenshot");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -59,8 +113,14 @@ public class MyListeners extends BasePage implements ITestListener {
 
 	@Override
 	public void onFinish(ITestContext context) {
-		// TODO Auto-generated method stub
+		extent.flush();	
+		if(context.getFailedTests().size()>0) {
+			throw new TestNGException("Failures present");
+		}
 		
+		if(context.getSkippedTests().size()>0) {
+			throw new TestNGException("Skipped Tests present");
+		}
 	}
 
 	@Override
@@ -102,6 +162,14 @@ public class MyListeners extends BasePage implements ITestListener {
 		FileUtils.copyFile(source, new File(path));
 		byte[] imageBytes = IOUtils.toByteArray(new FileInputStream(path));
 		return Base64.getEncoder().encodeToString(imageBytes);
+	}
+	
+	public synchronized String getBase64ScreenshotString(WebDriver driver) throws IOException {
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		byte[] fileContent = FileUtils.readFileToByteArray(source);
+		String base64StringofScreenshot = "data:image/png;base64,"+Base64.getEncoder().encodeToString(fileContent);
+		return base64StringofScreenshot;
 	}
 	
 }

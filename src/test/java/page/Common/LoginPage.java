@@ -30,10 +30,8 @@ public class LoginPage extends BasePage {
 
 
 	public void setUserName(String userName) {
-//		if (isALT) {
-//			System.out.println("ALT");
-//		}
 		util.inputText(txtUsername, userName);
+//		util.inputText(By.xpath("//*"), userName);
 		
 	}
 
@@ -42,18 +40,15 @@ public class LoginPage extends BasePage {
 	}
 
 	public void login(Map<String, String> map) {
-//		CommonConstant.appURL = map.get("URL");
-//		setEnvironment(CommonConstant.appURL);
-//		openurl(map.get(Excel.URL));
 		setUserName(map.get(Excel.UserName));
 		setPassword(map.get(Excel.Password));
 		util.click(btnLogin);
-		if (isLoginSuccess != null) {
+		if (util.isElementPresent(isLoginSuccess)) {
 			ReportsClass.logStat(Status.PASS, "Login Successfully !!!");
 		} else {
 			ReportsClass.logStat(Status.FAIL, "Failed Login !!!");
 		}
-		Assert.assertTrue((isLoginSuccess != null), "Failed Login !!!");
+		Assert.assertTrue((util.isElementPresent(isLoginSuccess)), "Failed Login !!!");
 	}
 
 }

@@ -119,13 +119,12 @@ public class CommonFunction extends BasePage {
 				.getText().trim();
 		if (tabProjectDetails.contains("Project Details")) {
 			System.out.println("User can navigate to the Project details !!!");
-			ReportsClass.logStat(Status.PASS, "Step 1 : User can navigate to the Project details !!!");
+			ReportsClass.logStat(Status.PASS, "User can navigate to the Project details !!!");
 		} else {
 			System.out.println("User cannot see the option in Menu !!!");
-			ReportsClass.logStat(Status.FAIL, "Step 1 : User cannot see the option in Menu !!!");
+			ReportsClass.logStat(Status.FAIL, "User cannot see the option in Menu !!!");
 		}
 		Assert.assertTrue(tabProjectDetails.contains("Project Details"), "User cannot see the option in Menu !!!");
-		log("navigating to create new Project");
 	}
 	
 	public void navigateToMyDashboard() {
