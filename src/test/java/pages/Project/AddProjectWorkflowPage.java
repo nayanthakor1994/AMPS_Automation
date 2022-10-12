@@ -212,6 +212,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 1: Click on Add button under the  Project Approvals panels", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 1: Click on Add button under the  Project Approvals panels", Status.FAIL);
+			throw new RuntimeException("Failed in step 1");
 		}
 		try {
 			util.waitForWebElementToBePresent(iframeApproval);
@@ -220,12 +221,14 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 2: Selected the GIS Bulk Processing Document Generation from Approval Type DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 2: Selected the GIS Bulk Processing Document Generation from Approval Type DD", Status.FAIL);
+			throw new RuntimeException("Failed in step 2");
 		}
 		try {
 			selectTemplate(map.get(Excel.Template));
 			log("STEP 3: Selected the templates from DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3: Selected the templates from DD", Status.FAIL);
+			throw new RuntimeException("Failed in step 3");
 		}
 
 		try {
@@ -233,6 +236,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 4: Selected the report format", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4: Selected the report format", Status.FAIL);
+			throw new RuntimeException("Failed in step 4");
 		}
 
 		try {
@@ -240,6 +244,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 5: Clicked on save button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 5: Clicked on save button", Status.FAIL);
+			throw new RuntimeException("Failed in step 5");
 		}
 
 		try {
@@ -248,6 +253,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 6: Selected the Douments tab and clicked on add button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 6: Select the Douments tab and click on add button", Status.FAIL);
+			throw new RuntimeException("Failed in step 6");
 		}
 
 		try {
@@ -256,6 +262,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 7: Select the document category", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 7: Select the document category", Status.FAIL);
+			throw new RuntimeException("Failed in step 7");
 		}
 		
 		try {
@@ -263,6 +270,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 8: Entered a Title of document", Status.PASS);
 		} catch (Exception e) {	
 			log("STEP 8: Entered a Title of document", Status.FAIL);
+			throw new RuntimeException("Failed in step 8");
 		}
 		
 		try {
@@ -271,6 +279,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 9: Document is uploaded", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 9: Document is not uploaded", Status.FAIL);
+			throw new RuntimeException("Failed in step 9");
 		}
 		
 		try {
@@ -284,6 +293,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 10: Clicked on Load documents button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 10: Clicked on Load documents button", Status.FAIL);
+			throw new RuntimeException("Failed in step 10");
 		}
 
 		// Notes Tab
@@ -293,6 +303,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 11: Selected the Notes  tab and click on add button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 11: Selected the Notes  tab and click on add button", Status.FAIL);
+			throw new RuntimeException("Failed in step 11");
 		}
 		// select filters
 		try {
@@ -300,12 +311,14 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 12: select the category", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 12: select the category", Status.FAIL);
+			throw new RuntimeException("Failed in step 12");
 		}
 		
 		try {
 			log("STEP 13: Enter the description", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 13: Enter the description", Status.FAIL);
+			throw new RuntimeException("Failed in step 13");
 		}
 		try {
 			clickOnSaveNote();
@@ -313,6 +326,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 14: Clicked on Save Note button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 14: Clicked on Save Note button", Status.FAIL);
+			throw new RuntimeException("Failed in step 14");
 		}
 		try {
 			util.switchToDefaultContent();
@@ -324,6 +338,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 15: Clicked on edit link", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 15: Clicked on edit link", Status.FAIL);
+			throw new RuntimeException("Failed in step 15");
 		}
 		try {
 			// Associated record tab
@@ -331,6 +346,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 16: Navigate to the associated records tab", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 16: Navigate to the associated records tab", Status.FAIL);
+			throw new RuntimeException("Failed in step 16");
 		}
 		
 		try {
@@ -339,6 +355,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 17: Selected a project from DD and click on GO button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 17: Selected a project from DD and click on GO button", Status.FAIL);
+			throw new RuntimeException("Failed in step 17");
 		}
 
 		try {
@@ -352,6 +369,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 18: Select a Tract list from the DD and click on Add ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 18: Select a Tract list from the DD and click on Add ", Status.FAIL);
+			throw new RuntimeException("Failed in step 18");
 		}
 
 		try {
@@ -361,12 +379,14 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 19: Click on delete (X) icon", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 19 Click on delete (X) icon", Status.FAIL);
+			throw new RuntimeException("Failed in step 19");
 		}
 		try {
 			util.switchToDefaultContent();
 			log("STEP 20: Click on ok button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 20: Click on ok button", Status.FAIL);
+			throw new RuntimeException("Failed in step 20");
 		}
 	}
 

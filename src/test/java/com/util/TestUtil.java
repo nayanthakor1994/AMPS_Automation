@@ -63,13 +63,13 @@ public class TestUtil extends BasePage {
 	public void click(By xpath) {
 		try {
 			waitUntilElementDisplay(xpath);
-			getElement(Condition.isClickable, xpath, 60).click();
+			getElement(Condition.isClickable, xpath, 30).click();
 		} catch (Exception e) {
 			try {
 				JavascriptExecutor executor = (JavascriptExecutor) driver;
-				executor.executeScript("arguments[0].click();", getElement(Condition.isClickable, xpath, 60));
+				executor.executeScript("arguments[0].click();", driver.findElement(xpath));
 			} catch (Exception e1) {
-				throw e1;
+				throw new RuntimeException("Not able to click on element");
 			}
 		}
 	}
@@ -257,7 +257,7 @@ public class TestUtil extends BasePage {
 			System.out.println("Waiting for : " + locator);
 			getElement(Condition.isDisplayed, locator, 20);
 		} catch (Exception e) {
-			System.out.println("Element not present :");
+			System.out.println("Element not present");
 			throw e;
 		}
 	}
@@ -351,6 +351,7 @@ public class TestUtil extends BasePage {
 			if (!isVisibleInViewport(element))
 				scrollToElement(element);
 		} catch (Exception e) {
+			throw e;
 		}
 		return highlightElement(element);
 	}
@@ -616,9 +617,13 @@ public class TestUtil extends BasePage {
 			}
 			click(By.xpath(drpSelectName));
 		} catch (Exception e) {
-			click(locator);
-			waitUntilElementDisplay(By.xpath(drpSelectName));
-			click(By.xpath(drpSelectName));
+			try {
+				click(locator);
+				waitUntilElementDisplay(By.xpath(drpSelectName));
+				click(By.xpath(drpSelectName));
+			} catch (Exception e1) {
+				throw e1;
+			}
 		}
 	}
 

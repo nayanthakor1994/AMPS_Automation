@@ -46,7 +46,7 @@ public class AddProjectCityStateTest extends BasePage {
 
 	@DataProvider(name = "data-provider")
 	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environment");
+		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALTROW");
 	}
 
 }
