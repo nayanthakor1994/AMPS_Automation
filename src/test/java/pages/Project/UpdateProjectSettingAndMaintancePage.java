@@ -41,7 +41,12 @@ public class UpdateProjectSettingAndMaintancePage extends BasePage {
 
 	public void updateProjectSettingAndMaintence(Map<String, String> map) {
 				util.click(tabProjectSettingsAndMaintence);
-				util.click(btnEditRoyaltyProcessing);
+				try {
+					util.click(btnEditRoyaltyProcessing);
+					log("STEP 1: User can view   the listed field", Status.PASS);
+				} catch (Exception e) {
+					log("STEP 1: Field does not open/expand ", Status.FAIL);
+				}
 				setRoyaltyProcessing(map.get("Royalty Processing"));
 				util.click(btnUpdate);
 
@@ -51,9 +56,11 @@ public class UpdateProjectSettingAndMaintancePage extends BasePage {
 						.findElement(By.xpath("*//div//span[contains(text(),'Changes saved successfully!')]")).getText().trim();
 				if (getEditRotaltyProcessMsg.contains("Changes saved successfully!")) {
 					System.out.println("Edit Royalty Processing Changes Successfully !!!");
+					log("STEP 2: Edit Royalty Processing Changes Successfully ", Status.PASS);
 					ReportsClass.logStat(Status.PASS, "Edit Royalty Processing Changes Successfully !!!");
 				} else {
 					System.out.println("Failed to Edit Royalty Processing Changes !!!");
+					log("STEP 2: Failed to Edit Royalty Processing Changes ", Status.FAIL);
 					ReportsClass.logStat(Status.FAIL, "Failed to Edit Royalty Processing Changes !!!");
 				}
 				Assert.assertTrue(getEditRotaltyProcessMsg.contains("Changes saved successfully!"),

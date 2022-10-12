@@ -116,7 +116,7 @@ public class TestUtil extends BasePage {
 		} catch (Exception e) {
 			System.out.println("Element not present "+inputField);
 			e.printStackTrace();
-			throw e;
+			throw new RuntimeException("Unable to Enter Text");
 		}
 	}
 
@@ -134,7 +134,7 @@ public class TestUtil extends BasePage {
 			clearInputField(inputField);
 			inputField.sendKeys(text);
 		} catch (Exception e) {
-			throw e;
+			throw new RuntimeException("Unable to Enter Text :"+text);
 		}
 	}
 
@@ -351,7 +351,7 @@ public class TestUtil extends BasePage {
 			if (!isVisibleInViewport(element))
 				scrollToElement(element);
 		} catch (Exception e) {
-			throw e;
+			throw new RuntimeException("Unable to get Element :");
 		}
 		return highlightElement(element);
 	}
@@ -640,9 +640,15 @@ public class TestUtil extends BasePage {
 		}
 	}
 
-	public void selectValueFromDropdown(String Value, By locator) {
-		Select selct = new Select(driver.findElement(locator));
-		selct.selectByVisibleText(Value);
+	public void selectValueFromDropdown2(String Value, By locator) {
+		try {
+			waitUntilElementDisplay(locator);
+			Select selct = new Select(driver.findElement(locator));
+			selct.selectByVisibleText(Value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException("Unable to select :"+Value);
+		}
 	}
 
 	public boolean isElementVisible(By by) {

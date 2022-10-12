@@ -5,6 +5,7 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 import com.base.Excel;
 import com.util.CommonFunction;
@@ -37,7 +38,12 @@ public class AddOpertaingCompanyPage extends BasePage {
 		
 		util.click(btnOperatingComapnies);
 		setLesses(map.get(Excel.Lessees));
-		clickAdd();
+		try {
+			clickAdd();
+			log("STEP 1: Added Grantee displays", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: Added grantee is not displayed in the pane  ", Status.FAIL);
+		}
 		
 		
 		//Verify Company added or not 

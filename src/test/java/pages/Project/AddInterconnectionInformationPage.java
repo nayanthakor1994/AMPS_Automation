@@ -27,24 +27,24 @@ public class AddInterconnectionInformationPage extends BasePage {
 
 	public void setInterconnectionGrid(String value) {
 		if (!commonFunction.checkNA(value))
-		util.inputText(drpInterconnectionGrid, value);
+			util.inputText(drpInterconnectionGrid, value);
 		util.pressENTERkey();
 	}
 
 	public void setCost(String value) {
 		if (!commonFunction.checkNA(value))
-		util.inputText(txtCost, value);
+			util.inputText(txtCost, value);
 	}
 
 	public void updateInterconnectionGrid(String value) {
 		if (!commonFunction.checkNA(value))
-		util.inputText(updateInterConnectionName, value);
+			util.inputText(updateInterConnectionName, value);
 		util.pressENTERkey();
 	}
 
 	public void updateCost(String value) {
 		if (!commonFunction.checkNA(value))
-		util.inputText(editCost, value);
+			util.inputText(editCost, value);
 	}
 
 	public void navigateToProjectDetails() {
@@ -74,7 +74,7 @@ public class AddInterconnectionInformationPage extends BasePage {
 	By loadDocumentFile = By.cssSelector("#buttonSubmit");
 	By documentSuccessMessage = By.xpath("//span[@id='lblResults']");
 	By btnDocumentClose = By.xpath("//a[@title='Close']");
-	
+
 	By documentIframe = By.xpath("//iframe[@name='ViewEditDocument']");
 	By documentAddIframe = By.xpath("//iframe[@name='AddDocuments']");
 	String viewEditDocument = "//div[contains(@id,'radYALGridControl')]//td[contains(.,'%s')]/following-sibling::td//a[text()='View/Edit Document']";
@@ -87,21 +87,41 @@ public class AddInterconnectionInformationPage extends BasePage {
 	String tableRecord = "//table[@id='ctl00_ConPHRightTop_radPrjPanels_i3_i0_INTERCONNECT_radYALGridControl_ctl00']//tbody//tr//td[contains(.,'%s')]";
 	By changesSavedSuccessfully = By.xpath("//span[text()='Changes saved successfully!']");
 
-	
 	By deleteOk = By.xpath("//a[contains(@onClick,'confirm')]//span[text()='OK']");
+
 	public void addInterconnectionInformation(Map<String, String> map) {
 		commonFunction.navigateToProjectDeails();
 		util.waitUntilElementDisplay(tabInterconnectionInformation);
 		util.click(tabInterconnectionInformation);
 		util.waitUntilElementDisplay(btnAddNewRecordInterconnectionInformation);
-		util.click(btnAddNewRecordInterconnectionInformation);
+		try {
+			util.click(btnAddNewRecordInterconnectionInformation);
+			log("STEP 1: The panel fields displays.", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1:  The panel does not expand.", Status.FAIL);
+		}
 
-		setInterconnectionGrid(map.get("Interconnection Grid"));
-		setCost(map.get("Cost"));
+		try {
+			setInterconnectionGrid(map.get("Interconnection Grid"));
+			log("STEP 2: Value added diplays in the Interconnection grid column field.", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 2:  Added value does not display in the field. ", Status.FAIL);
+		}
+		try {
+			setCost(map.get("Cost"));
+			log("STEP 3: Amount added diplays in the cost column field. ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 3:  Added value does not display in the field.  ", Status.FAIL);
+		}
 
 		// Click on Insert Button
 		util.waitUntilElementDisplay(btnInsertInterconnectionInformation);
-		util.click(btnInsertInterconnectionInformation);
+		try {
+			util.click(btnInsertInterconnectionInformation);
+			log("STEP 4: The added values displays in the grid", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 4:  Added values does  not displayed in the grid  ", Status.FAIL);
+		}
 
 		// Verify Interconnection Information Saved Successfully
 		util.waitUntilElementDisplay(By.xpath("*//div//span[contains(text(),'Changes saved successfully!')]"));
@@ -109,10 +129,12 @@ public class AddInterconnectionInformationPage extends BasePage {
 				.findElement(By.xpath("*//div//span[contains(text(),'Changes saved successfully!')]")).getText().trim();
 		if (getInterconnectionInfoSuccessMsg.contains("Changes saved successfully!")) {
 			System.out.println("Interconnection Information Saved Successfully !!!");
+			log("STEP 4: Interconnection Information Saved Successfully ", Status.PASS);
 			ReportsClass.logStat(Status.PASS,
 					map.get("Interconnection Grid") + ": Interconnection Information Saved Successfully !!!");
 		} else {
 			System.out.println("Failed to Save Interconnection Information !!!");
+			log("STEP 4:  Failed to Save Interconnection Information  ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, map.get("Cost") + ": Failed to Save Interconnection Information !!!");
 		}
 		Assert.assertTrue(getInterconnectionInfoSuccessMsg.contains("Changes saved successfully!"),
@@ -124,22 +146,39 @@ public class AddInterconnectionInformationPage extends BasePage {
 	}
 
 	public void updateInterconnectionInformation(Map<String, String> map) {
-		By viewEditBtn = By.xpath(String.format(editInterconnection, map.get("Interconnection Grid")));
+		By viewEditBtn = By.xpath(String.format(editInterconnection, map.get("EditInterconnection Grid")));
 		util.waitUntilElementDisplay(viewEditBtn);
-		util.click(viewEditBtn);
+		try {
+			util.click(viewEditBtn);
+			log("STEP 5: added value diplays in the comment field  ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 5:  added  value does not displayed in the field. OR 2) Cannot add values in the text field  ", Status.FAIL);
+		}
 
-		updateInterconnectionGrid(map.get("EditInterconnection Grid"));
-		updateCost(map.get("EditCost"));
+		try {
+			updateInterconnectionGrid(map.get("EditInterconnection Grid"));
+			//log("Changed value  diplays in the grid ", Status.PASS);
+		} catch (Exception e) {
+			//log("Update value does not display in the grid.", Status.FAIL);
+		}
+		try {
+			updateCost(map.get("EditCost"));
+			//log("Changed value Cost diplays in the grid ", Status.PASS);
+		} catch (Exception e) {
+			//log("STEP 4:  Failed to Save Interconnection Information  ", Status.FAIL);
+		}
 		util.waitUntilElementDisplay(btnUpdateInterconnection);
 		util.click(btnUpdateInterconnection);
 
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
+			log("STEP 6: Interconnection information updated successfully ", Status.PASS);
 			ReportsClass.logStat(Status.PASS,
 					map.get("EditInterconnection Grid") + ": Interconnection information updated successfully");
 		} else {
-			ReportsClass.logStat(Status.FAIL,
-					map.get("EditInterconnection Grid") + ": Interconnection information does not updated successfully");
+			log("STEP 6:  Interconnection information does not updated successfully  ", Status.FAIL);
+			ReportsClass.logStat(Status.FAIL, map.get("EditInterconnection Grid")
+					+ ": Interconnection information does not updated successfully");
 		}
 		Assert.assertTrue(util.isElementPresent(String.format(tableRecord, map.get("EditInterconnection Grid"))));
 		/*
@@ -154,47 +193,95 @@ public class AddInterconnectionInformationPage extends BasePage {
 		String filepath = System.getProperty("user.dir") + File.separator + "test.txt";
 		By viewEditBtn = By.xpath(String.format(viewEditDocument, map.get("Interconnection Grid")));
 		util.waitUntilElementDisplay(viewEditBtn);
-		util.click(viewEditBtn);
-		
+		try {
+			util.click(viewEditBtn);
+			log("STEP 7: Document popup window Opened ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 7:  The document pop window does not display  ", Status.FAIL);
+		}
+
 		util.waitUntilElementDisplay(documentIframe);
 		util.switchToIframe(documentIframe);
 		util.waitUntilElementDisplay(btnAddDocument);
 		util.click(btnAddDocument);
 		util.switchToIframe(documentAddIframe);
 		util.waitUntilElementDisplay(drpCategory);
-		util.selectValueFromDropdown("test doc cat", drpCategory);
-		util.inputText(txtDescription, "Test Automation");
+		try {
+			util.selectValueFromDropdown2("test doc cat", drpCategory);
+			log("STEP 8: Value added diplays in the field : Category ", Status.PASS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log("STEP 8:  Added value does not display in the field : Category  ", Status.FAIL);
+		}
+		try {
+			util.inputText(txtDescription, "Test Automation");
+			log("STEP 9: User can enter a value in the field    ", Status.PASS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log("STEP 9:  User cannot add a value in the field   ", Status.FAIL);
+		}
 		driver.findElement(documentFileUpload).sendKeys(filepath);
 		util.waitFor(2000);
-		util.click(loadDocumentFile);
-		
+		try {
+			util.click(loadDocumentFile);
+			log("STEP 10: User can upload document from the system  ", Status.PASS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log("STEP 10:  User cannot upload a document  ", Status.FAIL);
+		}
+
 		util.waitUntilElementDisplay(documentSuccessMessage);
-		if(util.getText(documentSuccessMessage).contains("Loaded: test.txt")){
+		if (util.getText(documentSuccessMessage).contains("Loaded: test.txt")) {
+			log("STEP 11: Document Saved Successfully ", Status.PASS);
 			ReportsClass.logStat(Status.PASS, map.get("Interconnection Grid") + ": Document Saved Successfully !!!");
 		} else {
-			ReportsClass.logStat(Status.FAIL, map.get("Interconnection Grid") + ": Document does not saved Successfully !!!");
+			log("STEP 11:  Document does not saved Successfully  ", Status.FAIL);
+			ReportsClass.logStat(Status.FAIL,
+					map.get("Interconnection Grid") + ": Document does not saved Successfully !!!");
 		}
 		util.switchToDefaultContent();
-		util.click(btnDocumentClose);
+		try {
+			log("STEP 12: upon popup close, auto refresh the panel to display updated information ", Status.PASS);
+			util.click(btnDocumentClose);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log("STEP 12:  Autorefresh of the panel does not happen  ", Status.FAIL);
+		}
 
 	}
 
 	public void deleteInterconnection(Map<String, String> map) {
 		By viewDeleteBtn = By.xpath(String.format(deleteInterconnection, map.get("Interconnection Grid")));
 		util.waitUntilElementDisplay(viewDeleteBtn);
-		util.click(viewDeleteBtn);
-		
+		try {
+			util.click(viewDeleteBtn);
+			log("STEP 13:  Delete popup window should display ", Status.PASS);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			log("STEP 13:  The delete pop window does not display  ", Status.FAIL);
+		}
+
 		util.waitFor(2000);
-		util.click(deleteOk);
+		try {
+			util.click(deleteOk);
+			log("STEP 14: Deleted record does not display in the grid and ", Status.PASS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log("STEP 14:  Record does not display in grid  ", Status.FAIL);
+		}
 		util.waitFor(2000);
 
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
-			ReportsClass.logStat(Status.PASS, map.get("Interconnection Grid") + ": Interconnection Information is deleted sucessfully !!!");
+			log(" Interconnection Information is deleted sucessfully  ", Status.PASS);
+			ReportsClass.logStat(Status.PASS,
+					map.get("Interconnection Grid") + ": Interconnection Information is deleted sucessfully !!!");
 		} else {
-			ReportsClass.logStat(Status.FAIL, map.get("Interconnection Grid") + ": Interconnection Information is not deleted sucessfully !!!");
+			log("Interconnection Information is not deleted sucessfully", Status.FAIL);
+			ReportsClass.logStat(Status.FAIL,
+					map.get("Interconnection Grid") + ": Interconnection Information is not deleted sucessfully !!!");
 		}
-		
+
 	}
 
 }

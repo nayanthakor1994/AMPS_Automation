@@ -81,7 +81,12 @@ public class AddKeyDatePage extends BasePage {
 	public void addKeyDate(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		clickProjectSchedule();
-		editPrjectSchecule();
+		try {
+			editPrjectSchecule();
+			log("STEP 1:  The panel fields displays", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: The panel does not expand  ", Status.FAIL);
+		}
 		setExpectedDate(map.get(Excel.ExpectedDate));
 		setActualDate(map.get(Excel.ActualDate));
 		setExpectedEnd(map.get(Excel.ExpectedEnd));
@@ -94,9 +99,11 @@ public class AddKeyDatePage extends BasePage {
 				.findElement(By.xpath("*//div//span[contains(text(),'Changes saved successfully!')]")).getText().trim();
 		if (getEditRotaltyProcessMsg.contains("Changes saved successfully!")) {
 			System.out.println("Add Key Date Changes Successfully !!!");
+			log("STEP 2:  Add Key Date Changes Successfullys", Status.PASS);
 			ReportsClass.logStat(Status.PASS, "Add Key Date Changes Successfully !!!");
 		} else {
 			System.out.println("Failed to Add Key Date !!!");
+			log("STEP 2: Failed to Add Key Date  ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "Failed to Add Key Date !!!");
 		}
 		Assert.assertTrue(getEditRotaltyProcessMsg.contains("Changes saved successfully!"),

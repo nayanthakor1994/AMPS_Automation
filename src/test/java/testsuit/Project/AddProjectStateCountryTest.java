@@ -14,24 +14,25 @@ import com.util.ExcelUtils;
 import com.util.ReadPropertyFile;
 
 import page.Common.LoginPage;
-import pages.Project.AddProjectCityStatePage;
+import pages.Project.AddProjectStateCountryPage;
 
 @Listeners(com.listeners.MyListeners.class)
-public class AddProjectCityStateTest extends BasePage {
+public class AddProjectStateCountryTest extends BasePage {
 	LoginPage objLogin;
 	ReadPropertyFile readPro = new ReadPropertyFile();
-	AddProjectCityStatePage objCityState;
+	AddProjectStateCountryPage objCityState;
 	Map<String, String> map = new HashMap<String, String>();
 
 	@BeforeClass
 	public void setup() throws Exception {
 		driver = getDriver();
 		objLogin = new LoginPage(driver);
-		objCityState = new AddProjectCityStatePage(driver);
+		objCityState = new AddProjectStateCountryPage(driver);
 	}
 
 	@Test(dataProvider = "data-provider")
 	public void add_Project_State_Country_TC_02(String testName, String appURL, String env) throws Exception {
+		log("TC02 : Add a Project State and County");
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
@@ -46,7 +47,7 @@ public class AddProjectCityStateTest extends BasePage {
 
 	@DataProvider(name = "data-provider")
 	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALTROW");
+		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALT");
 	}
 
 }
