@@ -27,7 +27,8 @@ public class AddProjectAssignmentPage extends BasePage {
 	By drpSelectUser = By.xpath("//input[contains(@id,'MSUSERS_YALComboBox_Input')]");
 	By drpSelectRole = By.xpath("//input[contains(@id,'PrjRole_radYALDropDownList_Input')]");
 	By drpSelectAgent = By.xpath("//input[contains(@id,'ProjectAssignments_CUSERS_YALComboBox_Input')]");
-	By btnAdd = By.xpath("//input[@value='Add']");
+	By btnAdd = By.xpath("//input[@alt='Add']");
+	By btnAdd2 = By.xpath("//input[@value='Add']");
 	By btnUpdate = By.xpath("//input[contains(@id,'EditFormControl_btnUpdate')]");
 	By btnEdit = By.xpath("//td[contains(text(),'%s')]/parent::tr/td");
 	By drpEdituser = By.xpath("//input[contains(@id,'EditFormControl_USER_ID_radYALDropDownList_Input')]");
@@ -77,6 +78,13 @@ public class AddProjectAssignmentPage extends BasePage {
 			util.pressENTERkey();
 		}
 	}
+	public void clickOnAdd() {
+		try {
+			util.click(btnAdd);
+		} catch (Exception e) {
+			util.click(btnAdd2);
+		}
+	}
 
 	public void editProjectAssignment(String value) {
 		By btnEdit = By.xpath("//td[contains(text(),'" + value + "')]/parent::tr/td");
@@ -84,28 +92,58 @@ public class AddProjectAssignmentPage extends BasePage {
 	}
 
 	public void addProjectAssignment(Map<String, String> map) {
-		util.click(addProjectAssigment);
-		setUser(map.get(Excel.SelectUser));
-		setRole(map.get(Excel.SelectRole));
-		setAgent(map.get(Excel.SelectAgent));
-		util.click(btnAdd);
+			util.click(addProjectAssigment);
+		try {
+			setUser(map.get(Excel.SelectUser));
+			log("STEP 1: Value added diplays in the field", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: Added value does not display in the field ", Status.FAIL);
+		}
+		try {
+			setRole(map.get(Excel.SelectRole));
+			log("STEP 1: Value added diplays in the field", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: Added value does not display in the field ", Status.FAIL);
+		}
+		try {
+			setAgent(map.get(Excel.SelectAgent));
+			log("STEP 1: User can navigate to the Project details", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: User cannot see the option in Menu ", Status.FAIL);
+		}
+		clickOnAdd();
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.SelectUser)))) {
+			log("STEP 2: ProjectAssignment is added sucessfully", Status.PASS);
 			ReportsClass.logStat(Status.PASS, "ProjectAssignment is added sucessfully !!!");
 		} else {
+			log("STEP 2: ProjectAssignment is not added sucessfully ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "ProjectAssignment is not added sucessfully !!!");
 		}
 
 	}
 
 	public void UpdateProjectAssignment(Map<String, String> map) {
-		editProjectAssignment(map.get(Excel.SelectUser));
+		try {
+			editProjectAssignment(map.get(Excel.SelectUser));
+			log("STEP 3: The updated  values sets/displays in the field ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 3:  Updated values does  not displayed in the field.  ", Status.FAIL);
+		}
 		editUser(map.get(Excel.EditUser));
-		editRole(map.get(Excel.EditRole));
+		try {
+			editRole(map.get(Excel.EditRole));
+			log("STEP 4:The updated  values sets/displays in the field", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 4: Updated values does  not displayed in the field ", Status.FAIL);
+			// TODO Auto-generated catch block
+		}
 		editAgent(map.get(Excel.EditAgent));
-		util.click(btnUpdate);
+		clickOnAdd();
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.EditUser)))) {
+			log("STEP 5: User can navigate to the Project details", Status.PASS);
 			ReportsClass.logStat(Status.PASS, "ProjectAssignment is Edit sucessfully !!!");
 		} else {
+			log("STEP 5: ProjectAssignment is not added sucessfully ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "ProjectAssignment is not Edit sucessfully !!!");
 		}
 

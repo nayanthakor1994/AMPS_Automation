@@ -66,26 +66,50 @@ public class AddProjectPermitPage extends BasePage {
 	}
 	public void addProjectPermit(Map<String, String> map) throws InterruptedException {
 		util.click(PrjectPermit);
-		clickOnAddNewRecord();
+		try {
+			clickOnAddNewRecord();
+			log("STEP 1: The panel fields displays", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: The panel does not expand ", Status.FAIL);
+		}
 		Thread.sleep(3000);
-		setAgencyName(map.get(Excel.AgencyName));
-		setPermitNumber(map.get(Excel.PermitNumber));
+		try {
+			setAgencyName(map.get(Excel.AgencyName));
+			log("STEP 2: Value added diplays in the Agency Name column field", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 2: Added value does not display in the field. ", Status.FAIL);
+		}
+		try {
+			setPermitNumber(map.get(Excel.PermitNumber));
+			log("STEP 3: Value added diplays in the Permit Number column  field", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 3: Added value does not display in the field.  ", Status.FAIL);
+		}
 		util.click(btnInsert);
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.PermitNumber)))) {
+			log("STEP 4: ProjectPermit is added sucessfully", Status.PASS);
 			ReportsClass.logStat(Status.PASS, "ProjectPermit is added sucessfully !!!");
 		} else {
+			log("STEP 4: ProjectPermit is not added sucessfully ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "ProjectPermit is not added sucessfully !!!");
 		}
 
 	}
 	public void updateProjectPermit(Map<String, String> map) {
 		editProjectPermit(map.get(Excel.PermitNumber));
-		setComment(map.get(Excel.Comment));
+		try {
+			setComment(map.get(Excel.Comment));
+			log("STEP 5: added value diplays in the comment column field ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 5: added  value does not displayed in the field ", Status.FAIL);
+		}
 		util.click(btnUpdate);
 
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.Comment)))) {
+			log("STEP 6: ProjectPermit is Edit sucessfully ", Status.PASS);
 			ReportsClass.logStat(Status.PASS, "ProjectPermit is Edit sucessfully !!!");
 		} else {
+			log("STEP 6: ProjectPermit is not Edit sucessfully ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "ProjectPermit is not Edit sucessfully !!!");
 		}
 
@@ -97,16 +121,28 @@ public class AddProjectPermitPage extends BasePage {
 	}
 
 	public void deletProjectPermit(Map<String, String> map) {
-		deleteProjectPermit(map.get(Excel.PermitNumber));
+		try {
+			deleteProjectPermit(map.get(Excel.PermitNumber));
+			log("STEP 12:upon popup close, auto refresh the panel to display updated information  ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 12: Autorefresh of the panel does not happen ", Status.FAIL);
+		}
 		util.waitFor(2000);
-		util.click(deleteOk);
+		try {
+			util.click(deleteOk);
+			log("STEP 13: Delete popup window Open ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 13: The delete pop window does not display ", Status.FAIL);
+		}
 		util.waitFor(2000);
 
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
+			log("STEP 14: ProjectPermit is deleted sucessfully ", Status.PASS);
 			ReportsClass.logStat(Status.PASS,
 					map.get("Interconnection Grid") + ": Interconnection Information is deleted sucessfully !!!");
 		} else {
+			log("STEP 14: ProjectPermit is not deleted sucessfully ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL,
 					map.get("Interconnection Grid") + ": Interconnection Information is not deleted sucessfully !!!");
 		}

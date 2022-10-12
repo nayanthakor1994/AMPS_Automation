@@ -38,7 +38,8 @@ public class AddOpertaingCompanyTest extends BasePage {
 	}
 
 	@Test(dataProvider = "data-provider")
-	public void Add_Project_TC_01(String testName, String appURL, String env) throws Exception {
+	public void Add_Project_TC_08(String testName, String appURL, String env) throws Exception {
+		log("TC08 : Add an operating company");
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
@@ -56,7 +57,7 @@ public class AddOpertaingCompanyTest extends BasePage {
 
 	@DataProvider(name = "data-provider")
 	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environment");
+		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentROW");
 	}
 
 }

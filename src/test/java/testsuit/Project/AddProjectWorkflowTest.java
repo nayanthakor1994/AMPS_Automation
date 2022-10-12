@@ -3,6 +3,7 @@ package testsuit.Project;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
@@ -41,6 +42,7 @@ public class AddProjectWorkflowTest extends BasePage {
 
 	@Test(dataProvider = "data-provider")
 	public void Add_Project_TC_09(String testName, String appURL, String env) throws Exception {
+		log("TC09 : Add a Project workflow");
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
@@ -52,7 +54,11 @@ public class AddProjectWorkflowTest extends BasePage {
 		
 		commonFunction.navigateToProjectDeails();
 		
-		projectWorkflow.addNewWorkflow(map);
+		projectWorkflow.addNewWorkflow(map, true);
+		
+		projectWorkflow.addNewWorkflow(map, false);
+		
+//		projectWorkflow.addNewWorkflow2To18(map);
 		projectWorkflow.submitTheFormForReview();
 		projectWorkflow.closeApprovalForm();
 		projectWorkflow.verifyStoredRecord(map.get(Excel.ApprovalType));
@@ -69,21 +75,18 @@ public class AddProjectWorkflowTest extends BasePage {
 			commonFunction.navigateToMyDashboard();
 			log("STEP 23: Click on submit for review on the form", Status.PASS);
 		} catch (Exception e) {
-			log("STEP 23: Click on submit for review on the form", Status.FAIL);
+			log("STEP 23: Not Click on submit for review on the form", Status.FAIL);
+			throw new RuntimeException("Failed in step 23");
 		}
 		try {
 			dashboardPage.navigateToRequestedDocumentTab();
 			log("STEP 24: Click on the requested documents tab", Status.PASS);
 		} catch (Exception e) {
-			log("STEP 24: Click on the requested documents tab", Status.FAIL);
+			log("STEP 24: Not Click on the requested documents tab", Status.FAIL);
+			throw new RuntimeException("Failed in step 24");
 		}
-		try {
-			dashboardPage.isJobCreated("Requested");
-			log("STEP 25: The Job created is listed under the tab", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 25: The Job created is listed under the tab", Status.FAIL);
-		}
-		
+		Assert.assertTrue(dashboardPage.isJobCreated("Requested"), "Job is not created");
+		log("STEP 25: The Job created is listed under the tab", Status.PASS);
 
 	}
 

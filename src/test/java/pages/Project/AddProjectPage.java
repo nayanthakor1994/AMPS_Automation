@@ -66,15 +66,19 @@ public class AddProjectPage extends BasePage {
 		if (getProjectCodeSummary.equals(getStrProjectCode)) {
 			System.out.println("Project Code Matched !!!");
 			ReportsClass.logStat(Status.PASS, "Project Code Matched !!!");
+			log("STEP 11: Project Code Matched !!!", Status.PASS);
 		} else {
 			System.out.println("Project Code not Matched");
+			log("STEP 11: Project Code not Matched", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "Project Code not Matched");
 		}
 		if (getProjectNameSummary.equals(getStrProjectName)) {
 			System.out.println("Project Name Matched !!!");
+			log("STEP 11: Project Name Matched !!!", Status.PASS);
 			ReportsClass.logStat(Status.PASS, "Project Name Matched !!!");
 		} else {
 			System.out.println("Project Name not Matched");
+			log("STEP 11: Project Name not Matched", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "Project Name not Matched");
 		}
 
@@ -160,20 +164,98 @@ public class AddProjectPage extends BasePage {
 	}
 
 	public void addProjectInformation(Map<String, String> map) throws InterruptedException {
-		commonFunction.navigateToProjectDeails();
-		commonFunction.clickOnAddButton();
-		setProjectName(map.get(Excel.ProjectName));
-		setProjectNumber();
-		setProjectType(map.get(Excel.ProjectType));
-		setAbbreviation(map.get(Excel.Abbreviation));
-		setArea(map.get(Excel.Area));
-		setClient(map.get(Excel.Client));
-		setProjectStatus(map.get(Excel.ProjectStatus));
-		setTemporaryROW(map.get(Excel.TemporaryROW));
-		setPermanentROW(map.get(Excel.PermanentROW));
-		setUnit(map.get(Excel.Unit));
-		commonFunction.clickOnSaveButton();
-		commonFunction.clickOnArchieveButton();
+		try {
+			commonFunction.navigateToProjectDeails();
+			log("STEP 1: User can navigate to the Project details", Status.PASS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log("STEP 1: User cannot see the option in Menu ", Status.FAIL);
+		}
+		try {
+			commonFunction.clickOnAddButton();
+			log("STEP 2: User can click on the add button", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 2: User cannot see the add button  ", Status.FAIL);
+			
+		}
+		try {
+			setProjectName(map.get(Excel.ProjectName));
+			log("STEP 3: User can enter the value in the text field ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 3: User cannot add value  to the field ", Status.FAIL);
+		}
+		try {
+			setProjectNumber();
+			log("STEP 4: User can enter the value in the Project number  field", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 4:  User cannot add value  to the field ", Status.FAIL);
+		}
+		try {
+			setProjectType(map.get(Excel.ProjectType));
+			log("STEP 5:  Added value displays in the field", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 5:  User  cannot select  value  from the DD ", Status.FAIL);
+		}
+		try {
+			setAbbreviation(map.get(Excel.Abbreviation));
+			log("STEP 6:  User can enter Abbreviation value in the field    ", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 6: User cannot add Abbreviation value in the field  ", Status.FAIL);
+		}
+		try {
+			setArea(map.get(Excel.Area));
+			log("STEP 7: Added Area value displays in the field    ", Status.PASS);
+		} catch (InterruptedException e) {
+			log("STEP 7: User cannot add Area value in the field ", Status.FAIL);
+		}
+		try {
+			setClient(map.get(Excel.Client));
+			log("Added Client value displays in the field", Status.PASS);
+		} catch (Exception e) {
+			log(" User cannot Client value displays in the field ", Status.FAIL);
+		}
+		try {
+			setProjectStatus(map.get(Excel.ProjectStatus));
+			log( "Added ProjectStatus value displays in the field", Status.PASS);
+		} catch (Exception e) {
+			log("User cannot ProjectStatus value displays in the field ", Status.FAIL);
+		}
+		try {
+			setTemporaryROW(map.get(Excel.TemporaryROW));
+			log("Added TemporaryROW value displays in the field", Status.PASS);
+		} catch (Exception e) {
+			log("User cannot TemporaryROW value displays in the field ", Status.FAIL);
+		}
+		try {
+			setPermanentROW(map.get(Excel.PermanentROW));
+			log("Added PermanentROW value displays in the field", Status.PASS);
+		} catch (Exception e) {
+			log("User cannot PermanentROW value displays in the field ", Status.FAIL);
+		}
+		try {
+			setUnit(map.get(Excel.Unit));
+			log("Added Unit value displays in the field", Status.PASS);
+		} catch (Exception e) {
+			log("User cannot Unit value displays in the field ", Status.FAIL);
+		}
+		try {
+			commonFunction.clickOnSaveButton();
+			log("STEP 8: User can navigate to the Project details", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 8: Project is not created ", Status.FAIL);
+		}
+		try {
+			commonFunction.clickOnArchieveButton();
+			log("STEP 9: The button text should be changed to UNARCHIVE", Status.PASS);
+		} catch (InterruptedException e) {
+			log("STEP 9: Button text or color does not change ", Status.FAIL);
+		}
+		try {
+			commonFunction.clickOnSaveButton();
+			log("STEP 10: Project is unarchive and does not display in Poject list DD", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 10: Project still displays under the project list", Status.FAIL);
+		}
 		verifySummaryALT();
 	}
 

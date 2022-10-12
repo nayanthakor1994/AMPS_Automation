@@ -40,6 +40,7 @@ public class UpdateProjectSettingAndMaintanceTest extends BasePage {
 
 	@Test(dataProvider = "data-provider")
 	public void Update_Project_Setting_Maintence_TC_03(String testName, String appURL, String env) throws Exception {
+		log("TC03 : Update the Project Settings & Maintence");
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
@@ -56,7 +57,7 @@ public class UpdateProjectSettingAndMaintanceTest extends BasePage {
 
 	@DataProvider(name = "data-provider")
 	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environment");
+		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALT");
 	}
 
 }
