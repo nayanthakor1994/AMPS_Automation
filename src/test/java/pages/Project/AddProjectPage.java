@@ -13,115 +13,157 @@ import com.util.TestUtil;
 
 import com.util.ReportsClass;
 
-
-
-public class AddProjectPage extends BasePage{
+public class AddProjectPage extends BasePage {
 	TestUtil util;
-	CommonFunction commonFunction ;
+	CommonFunction commonFunction;
 
 	public AddProjectPage(WebDriver driver) {
 		this.driver = driver;
 		util = new TestUtil(driver);
 		commonFunction = new CommonFunction(driver);
 	}
-	
-	By txtProjectName = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_radPrjName']");
-	By txtProjectNumber = By
-			.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_radPrjNum']");
-	By drpProjectType = By.xpath(
-			"//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_yalProjType_radYALDropDownList_Input']");
-	By txtAbbreviation = By
-			.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_ABBREVIATION']");
-	By drpArea = By.xpath(
-			"//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_yalPrjArea_radYALDropDownList_Input']");
-	By btnSave = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_btnSaveProject']");
-	By btnSaveDOT = By.xpath("//input[@id='ctl00_ConPHRightTop_PRDT_UC_radPrjPanels_i0_i0_OBJPROJECTINFO_btnSaveProject']");
+
+//	By txtProjectName = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_radPrjName']");
+	By txtProjectName = By.xpath("//input[contains(@id,'radPrjName')][1]");
+	By txtProjectNumber = By.xpath("(//input[contains(@id,'radPrjNum')])[1]");
+	By drpProjectType = By.xpath("(//input[contains(@id,'ProjType')])[1]");
+	By txtAbbreviation = By.xpath("//input[contains(@id,'OBJPROJECTINFO_ABBREVIATION')][1]");
+	By drpArea = By.xpath("//input[contains(@id,'yalPrjArea_radYALDropDownList_Input')]");
+	By btnSave = By.xpath("//input[contains(@id,'btnSaveProject')]");
 	By btnArchieve = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_btnArchive']");
-	By btnArchieveDot = By.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnArchive']");
-	By archieveokPopupFrame = By.xpath("//iframe[contains(@name,'confirm')]");
+	By drpTemporaryRow = By.xpath("//input[contains(@name,'yalTempROWWidth$radYALDropDownList')]");
+	By drpPermanentRow = By.xpath("//input[contains(@name,'yalPermROWWidth_radYALDropDownList')]");
+	By drpUnitRow = By.xpath("//input[contains(@name,'PERMROW_WIDTH_UNIT$radYALDropDownList')]");
+
 	By archieveOk = By.xpath("//a[contains(@onClick,'confirm')][1]");
-	//By archieveOkbutton = By.xpath("//div[contains(@id,'confirm')]//div/a[contains(@onClick,'confirm')][1]");
 	By archieveOkbutton = By.xpath("(//div[contains(@id,'confirm')])[1]");
 	By btnUnArchieve = By.xpath("//input[@name='ctl00$ConPHRightTop$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
-	By btnUnArchieveDot = By.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
-	By txtProjectNumberDot = By
-			.xpath("//input[@id='ctl00_ConPHRightTop_PRDT_UC_radPrjPanels_i0_i0_OBJPROJECTINFO_radPrjNum']");
-	By txtProjectNameDot = By
-			.xpath("//input[@id='ctl00_ConPHRightTop_PRDT_UC_radPrjPanels_i0_i0_OBJPROJECTINFO_radPrjName']");
-	By drpProjectTypeDot = By.xpath(
-			"//input[@id='ctl00_ConPHRightTop_PRDT_UC_radPrjPanels_i0_i0_OBJPROJECTINFO_yalProjType_radYALDropDownList_Input']");
-	By drpClientDot = By.xpath("//input[@id='ctl00_ConPHRightTop_PRDT_UC_radPrjPanels_i0_i0_OBJPROJECTINFO_yalPrjArea_radYALDropDownList_Input']");
-	By drpProjectStatusDot = By.xpath("//input[@id='ctl00_ConPHRightTop_PRDT_UC_radPrjPanels_i0_i0_OBJPROJECTINFO_PROJECT_STATUS_ID_radYALDropDownList_Input']");
-	
+	By btnUnArchievedot = By
+			.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
+	By drpClient = By.xpath("//input[contains(@id,'yalPrjArea_radYALDropDownList_Input')]");
+	By drpProjectStatus = By.xpath("//input[contains(@id,'PROJECT_STATUS_ID_radYALDropDownList_Input')]");
+
 	By txtProjectNameSummary = By.xpath("(//*[contains(text(),'Project Name')]/following::td/strong)[1]");
-	By txtProjectCodeSummary = By.xpath("(//*[contains(text(),'Project #')]/following::td/strong)[1]");		
+	By txtProjectCodeSummary = By.xpath("(//*[contains(text(),'Project #')]/following::td/strong)[1]");
 
-
+	By btnArchieveDot = By
+			.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnArchive']");
+	By archieveokPopupFrame = By.xpath("//iframe[contains(@name,'confirm')]");
+	By btnUnArchieveDot = By
+			.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
 
 	public void verifySummaryALT() {
-		String getStrProjectCode = driver.findElement(By.id("ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_radPrjNum")).getAttribute("value");
-		String getStrProjectName = driver.findElement(By.id("ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_radPrjName")).getAttribute("value");
-		
-		String getProjectCodeSummary = driver.findElement(By.xpath("(//*[contains(text(),'Project')]/following::td/strong)[1]")).getText();
-		String getProjectNameSummary = driver.findElement(By.xpath("(//*[contains(text(),'Project')]/following::td/strong)[2]")).getText();
-		
-		if(getProjectCodeSummary.equals(getStrProjectCode)){
-			 System.out.println("Project Code Matched !!!");
-				ReportsClass.logStat(Status.PASS, "Project Code Matched !!!");
-			} else {
-				System.out.println("Project Code not Matched");
-				ReportsClass.logStat(Status.FAIL, "Project Code not Matched");
+		String getStrProjectCode = driver
+				.findElement(By.xpath("(//input[contains(@id,'OBJPROJECTINFO_radPrjNum')])[1]")).getAttribute("value");
+		String getStrProjectName = driver
+				.findElement(By.xpath("(//input[contains(@id,'OBJPROJECTINFO_radPrjName')])[1]")).getAttribute("value");
+
+		String getProjectCodeSummary = driver
+				.findElement(By.xpath("(//*[contains(text(),'Project')]/following::td/strong)[1]")).getText();
+		String getProjectNameSummary = driver
+				.findElement(By.xpath("(//*[contains(text(),'Project')]/following::td/strong)[2]")).getText();
+
+		if (getProjectCodeSummary.equals(getStrProjectCode)) {
+			System.out.println("Project Code Matched !!!");
+			ReportsClass.logStat(Status.PASS, "Project Code Matched !!!");
+		} else {
+			System.out.println("Project Code not Matched");
+			ReportsClass.logStat(Status.FAIL, "Project Code not Matched");
 		}
-		 if(getProjectNameSummary.equals(getStrProjectName)){
-			 System.out.println("Project Name Matched !!!");
-				ReportsClass.logStat(Status.PASS, "Project Name Matched !!!");
-			} else {
-				System.out.println("Project Name not Matched");
-				ReportsClass.logStat(Status.FAIL, "Project Name not Matched");
+		if (getProjectNameSummary.equals(getStrProjectName)) {
+			System.out.println("Project Name Matched !!!");
+			ReportsClass.logStat(Status.PASS, "Project Name Matched !!!");
+		} else {
+			System.out.println("Project Name not Matched");
+			ReportsClass.logStat(Status.FAIL, "Project Name not Matched");
 		}
-		
+
 	}
-	public void setProjectNumber(String projectNumber) {
+
+	public void setProjectNumber() {
 		util.inputText(txtProjectNumber, util.randomNumber());
 	}
-	public void setProjectName(String projectName) {
-		util.inputText(txtProjectName, projectName);
+
+	public void setProjectName(String value) {
+		if (!commonFunction.checkNA(value))
+			util.inputText(txtProjectName, value);
 	}
-	public void setProjectType(String projectType) {
-		util.inputText(drpProjectType, projectType);
+
+	public void setProjectType(String value) {
+		if (!commonFunction.checkNA(value))
+			util.inputText(drpProjectType, value);
 		util.pressENTERkey();
 	}
-	public void setAbbreviation(String abbreviation) {
-		util.inputText(txtAbbreviation, abbreviation);
+
+	public void setAbbreviation(String value) {
+		if (!commonFunction.checkNA(value))
+			util.inputText(txtAbbreviation, value);
 	}
-	public void setArea(String area) throws InterruptedException {
-		util.inputText(drpArea, area);
+
+	public void setArea(String value) throws InterruptedException {
+		if (!commonFunction.checkNA(value))
+			util.inputText(drpArea, value);
 		util.waitFor(1000);
 		util.pressENTERkey();
-		
+
 	}
-	public void setClient(String client) {
-		
+
+	public void setClient(String value) {
+		if (!commonFunction.checkNA(value))
+			util.inputText(drpClient, value);
+		util.pressENTERkey();
+
 	}
-	public void setProjectStatus(String projectStatus) {
-		
+
+	public void setProjectStatus(String value) {
+		if (!commonFunction.checkNA(value))
+			util.inputText(drpProjectStatus, value);
+		util.pressENTERkey();
+
 	}
-	public void setTemporaryROW(String remporaryRow) {
-		
+
+	public void setTemporaryROW(String value) {
+		if (!commonFunction.checkNA(value))
+			util.inputText(drpTemporaryRow, value);
+		util.pressENTERkey();
+
 	}
-	public void setPermanentROW(String permanentROW) {
-		
+
+	public void setPermanentROW(String value) {
+		if (!commonFunction.checkNA(value))
+			util.inputText(drpPermanentRow, value);
+		util.pressENTERkey();
+
 	}
-	public void setUnit(String unit) {
-		
+
+	public void setUnit(String value) {
+		if (!commonFunction.checkNA(value))
+			util.inputText(drpUnitRow, value);
+		util.pressENTERkey();
 	}
+
+	public void clickOnArchieveButtonROW() throws InterruptedException {
+		Thread.sleep(1000);
+		util.waitUntilElementDisplay(btnArchieveDot);
+		util.click(btnArchieveDot);
+		Thread.sleep(1000);
+		util.waitUntilElementDisplay(archieveOk);
+		util.click(archieveOk);
+
+		if (util.isElementPresent(btnUnArchieveDot)) {
+			System.out.println("UnArchieve Present !!!");
+			ReportsClass.logStat(Status.PASS, "UnArchieve Present !!!");
+		} else {
+			System.out.println("UnArchieve not Present !!!");
+			ReportsClass.logStat(Status.FAIL, "UnArchieve not Present !!!");
+		}
+	}
+
 	public void addProjectInformation(Map<String, String> map) throws InterruptedException {
-		
-		
 		commonFunction.navigateToProjectDeails();
 		commonFunction.clickOnAddButton();
 		setProjectName(map.get(Excel.ProjectName));
-		setProjectNumber(map.get(Excel.ProjectNumber));
+		setProjectNumber();
 		setProjectType(map.get(Excel.ProjectType));
 		setAbbreviation(map.get(Excel.Abbreviation));
 		setArea(map.get(Excel.Area));
@@ -133,8 +175,6 @@ public class AddProjectPage extends BasePage{
 		commonFunction.clickOnSaveButton();
 		commonFunction.clickOnArchieveButton();
 		verifySummaryALT();
-		
 	}
-	
-	
+
 }

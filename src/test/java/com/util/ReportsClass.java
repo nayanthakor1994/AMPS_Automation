@@ -7,7 +7,8 @@ import java.util.Date;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+//import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 public class ReportsClass {
 	public static ExtentTest test;
@@ -36,8 +37,12 @@ public class ReportsClass {
 		Date date = new Date();
 				
 		
-		ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(readPro.getReportPath()+"-"+dateformat.format(date)+".html");
+		ExtentSparkReporter htmlReporter = new ExtentSparkReporter(readPro.getReportPath()+"-"+dateformat.format(date)+".html");
 		extent = new ExtentReports();
 		extent.attachReporter(htmlReporter);
+	}
+	
+	public static void attachScreenshot(String screenshot) {
+		test.addScreenCaptureFromBase64String(screenshot, "FailureImage");
 	}
 }

@@ -40,11 +40,8 @@ public class UpdateProjectSettingAndMaintancePage extends BasePage {
 			}
 
 	public void updateProjectSettingAndMaintence(Map<String, String> map) {
-				commonFunction.navigateToProjectDeails();
-				util.waitUntilElementDisplay(tabProjectSettingsAndMaintence);
 				util.click(tabProjectSettingsAndMaintence);
 				util.click(btnEditRoyaltyProcessing);
-				util.waitUntilElementDisplay(drpRoyaltyProcessing);
 				setRoyaltyProcessing(map.get("Royalty Processing"));
 				util.click(btnUpdate);
 

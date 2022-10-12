@@ -104,11 +104,10 @@ public class CommonFunction extends BasePage {
 	// Add Button
 	By topProjectMenu = By.xpath("//img[@id='ctl00_ConPHLeftTop_prjMenu']");
 	By btnAdd = By.xpath("*//a//span[@class='rmText' and contains(text(),'Add')]");
-	By btnArchieve = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_btnArchive']");
-	By btnArchieveDot = By.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnArchive']");
-	By btnUnArchieve = By.xpath("//input[@name='ctl00$ConPHRightTop$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
-	By btnUnArchieveDot = By.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
-	By btnSave = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_btnSaveProject']");
+	By btnArchieve = By.xpath("//input[contains(@id,'btnArchive')]");
+	By archieveOk = By.xpath("//a[contains(@onClick,'confirm')][1]");
+	By btnUnArchieve = By.xpath("//input[contains(@id,'btnUnarchive')]");
+	By btnSave = By.xpath("//input[contains(@id,'btnSaveProject')]");
 	public void navigateToProjectDeails() {
 		util.waitUntilElementDisplay(navProjectMenu);
 		util.click(navProjectMenu);
@@ -120,13 +119,12 @@ public class CommonFunction extends BasePage {
 				.getText().trim();
 		if (tabProjectDetails.contains("Project Details")) {
 			System.out.println("User can navigate to the Project details !!!");
-			ReportsClass.logStat(Status.PASS, "Step 1 : User can navigate to the Project details !!!");
+			ReportsClass.logStat(Status.PASS, "User can navigate to the Project details !!!");
 		} else {
 			System.out.println("User cannot see the option in Menu !!!");
-			ReportsClass.logStat(Status.FAIL, "Step 1 : User cannot see the option in Menu !!!");
+			ReportsClass.logStat(Status.FAIL, "User cannot see the option in Menu !!!");
 		}
 		Assert.assertTrue(tabProjectDetails.contains("Project Details"), "User cannot see the option in Menu !!!");
-		log("navigating to create new Project");
 	}
 	
 	public void navigateToMyDashboard() {
@@ -146,9 +144,15 @@ public class CommonFunction extends BasePage {
 		util.waitUntilElementDisplay(btnAdd);
 		util.click(btnAdd);
 	}
-	public void clickOnArchieveButton() {
+	public void clickOnArchieveButton() throws InterruptedException {
 		util.waitUntilElementDisplay(btnArchieve);
 		util.click(btnArchieve);
+		Thread.sleep(1000);
+		if(util.isElementPresent(archieveOk))
+		{
+		util.waitUntilElementDisplay(archieveOk);
+		util.click(archieveOk);
+		}
 		//util.waitUntilElementDisplay(btnUnArchieve);
 		if(util.isElementPresent(btnUnArchieve)){
 			System.out.println("UnArchieve Present !!!");
@@ -162,5 +166,9 @@ public class CommonFunction extends BasePage {
 	public void clickOnSaveButton() {
 		util.waitUntilElementDisplay(btnSave);
 		util.click(btnSave);
+	}
+
+	public boolean checkNA(String value) {
+		return value.equals(NA);
 	}
 }

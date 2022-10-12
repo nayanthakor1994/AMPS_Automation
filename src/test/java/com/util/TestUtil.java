@@ -13,7 +13,6 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -28,7 +27,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.base.BasePage;
 
 public class TestUtil extends BasePage {
-//	Logger logger = Logger.getLogger("Test");
 	WebDriverWait wait;
 
 	public TestUtil(WebDriver driver) {
@@ -65,14 +63,19 @@ public class TestUtil extends BasePage {
 	public void click(By xpath) {
 		try {
 			waitUntilElementDisplay(xpath);
-			getElement(Condition.isClickable, xpath, 60).click();
+			getElement(Condition.isClickable, xpath, 30).click();
 		} catch (Exception e) {
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("arguments[0].click();", getElement(Condition.isClickable, xpath, 60));
+			try {
+				JavascriptExecutor executor = (JavascriptExecutor) driver;
+				executor.executeScript("arguments[0].click();", driver.findElement(xpath));
+			} catch (Exception e1) {
+				throw new RuntimeException("Not able to click on element");
+			}
 		}
 	}
 
 	public void selectDropDownValue(By xpath, String value) {
+		waitUntilElementDisplay(xpath);
 		click(xpath);
 		waitFor(2000);
 		By drpValue = By.xpath("//ul//li[text()='" + value + "']");
@@ -90,8 +93,12 @@ public class TestUtil extends BasePage {
 			System.out.println("Waiting for : " + xpath);
 			getElement(Condition.isClickable, By.xpath(xpath), 60).click();
 		} catch (Exception e) {
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("arguments[0].click();", getElement(Condition.isClickable, By.xpath(xpath), 60));
+			try {
+				JavascriptExecutor executor = (JavascriptExecutor) driver;
+				executor.executeScript("arguments[0].click();", getElement(Condition.isClickable, By.xpath(xpath), 60));
+			} catch (Exception e1) {
+				throw e1;
+			}
 		}
 	}
 
@@ -107,8 +114,9 @@ public class TestUtil extends BasePage {
 			clearInputField(inputField);
 			inputField.sendKeys(text);
 		} catch (Exception e) {
-			// report error
+			System.out.println("Element not present "+inputField);
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -120,12 +128,13 @@ public class TestUtil extends BasePage {
 	 */
 	public void inputText(By locator, String text) {
 		try {
+			waitUntilElementDisplay(locator);
 			WebElement inputField = getElement(locator);
 			inputField.click();
 			clearInputField(inputField);
 			inputField.sendKeys(text);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -163,7 +172,7 @@ public class TestUtil extends BasePage {
 		try {
 			ele = getElement(Condition.isDisplayed, value, 60);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
 		return ele;
 	}
@@ -231,7 +240,11 @@ public class TestUtil extends BasePage {
 	 */
 	public void waitUntilElementPresent(By locator) {
 		System.out.println("Waiting for : " + locator);
-		getElement(Condition.isPresent, locator, 60);
+		try {
+			getElement(Condition.isPresent, locator, 60);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -240,8 +253,13 @@ public class TestUtil extends BasePage {
 	 * @param xpath
 	 */
 	public void waitUntilElementDisplay(By locator) {
-		System.out.println("Waiting for : " + locator);
-		getElement(Condition.isDisplayed, locator, 20);
+		try {
+			System.out.println("Waiting for : " + locator);
+			getElement(Condition.isDisplayed, locator, 20);
+		} catch (Exception e) {
+			System.out.println("Element not present");
+			throw e;
+		}
 	}
 
 	public List<WebElement> getWebElements(By locator) {
@@ -333,6 +351,7 @@ public class TestUtil extends BasePage {
 			if (!isVisibleInViewport(element))
 				scrollToElement(element);
 		} catch (Exception e) {
+			throw e;
 		}
 		return highlightElement(element);
 	}
@@ -598,9 +617,13 @@ public class TestUtil extends BasePage {
 			}
 			click(By.xpath(drpSelectName));
 		} catch (Exception e) {
-			click(locator);
-			waitUntilElementDisplay(By.xpath(drpSelectName));
-			click(By.xpath(drpSelectName));
+			try {
+				click(locator);
+				waitUntilElementDisplay(By.xpath(drpSelectName));
+				click(By.xpath(drpSelectName));
+			} catch (Exception e1) {
+				throw e1;
+			}
 		}
 	}
 

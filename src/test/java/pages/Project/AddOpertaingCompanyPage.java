@@ -1,5 +1,47 @@
 package pages.Project;
 
-public class AddOpertaingCompanyPage {
+import java.util.Map;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import com.base.BasePage;
+import com.base.Excel;
+import com.util.CommonFunction;
+import com.util.TestUtil;
+
+public class AddOpertaingCompanyPage extends BasePage {
+
+	
+	TestUtil util;
+	CommonFunction commonFunction;
+	public AddOpertaingCompanyPage(WebDriver driver) {
+		this.driver = driver;
+		util = new TestUtil(driver);
+		commonFunction = new CommonFunction(driver);
+	}
+
+	By btnOperatingComapnies =  By.xpath("(//a[normalize-space()='Operating Companies'])[2]");
+	By drpLesses = By.xpath("//input[contains(@id,'ProjectGrantees_GRANTEES_ID_OnDemand_Input')]");
+	By btnAdd = By.xpath("//input[contains(@id,'ProjectGrantees_ImageButton1')]");
+	
+	
+	public void setLesses(String value) {
+		util.inputText(drpLesses, value);
+		util.pressENTERkey();
+	}
+	public void clickAdd() {
+		util.click(btnAdd);
+	}
+	public void addOperatingCompanies(Map<String, String> map) {
+		
+		util.click(btnOperatingComapnies);
+		setLesses(map.get(Excel.Lessees));
+		clickAdd();
+		
+		
+		//Verify Company added or not 
+		//a[normalize-space()='geoAMPS North LLC']
+	}
 
 }

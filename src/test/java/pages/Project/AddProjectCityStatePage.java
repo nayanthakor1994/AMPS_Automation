@@ -24,17 +24,17 @@ public class AddProjectCityStatePage extends BasePage {
 	}
 
 	By btnAddNewRecord = By.xpath(
-			"//img[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_PROJECTSTATECOUNTY_radYALGridControl_ctl00_ctl02_ctl00_Img4']");
+			"(//img[contains(@id,'PROJECTSTATECOUNTY_radYALGridControl')])[1]");
 	By drpState = By.xpath(
-			"//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_PROJECTSTATECOUNTY_radYALGridControl_ctl00_ctl02_ctl03_EditFormControl_RadState_Input']");
+			"//input[contains(@id,'EditFormControl_RadState_Input')]");
 	By drpCountry = By.xpath(
-			"//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_PROJECTSTATECOUNTY_radYALGridControl_ctl00_ctl02_ctl03_EditFormControl_RadCounty_Input']");
+			"//input[contains(@id,'EditFormControl_RadCounty_Input')]");
 	By btnInsert = By.xpath(
-			"//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_PROJECTSTATECOUNTY_radYALGridControl_ctl00_ctl02_ctl03_EditFormControl_btnInsert']");
+			"//input[contains(@id,'EditFormControl_btnInsert')]");
 
 	By btnEdit = By.xpath("//input[contains(@name,'EditButton')]");
 	By EditState = By.xpath("//tr[contains(@id,'EditFormControl')]//input[contains(@name,'RadState')]");
-	By EditCountry = By.xpath("//tr[contains(@id,'EditFormControl')]//input[contains(@name,'RadCounty')]");
+	By EditCountry = By.xpath("(//tr[contains(@id,'EditFormControl')]//input[contains(@name,'RadCounty')])[1]");
 	By btnUpdateCountry = By.xpath("//input[contains(@id,'btnUpdate')]");
 	By tableCountryName = By.xpath("((//table[@class='rgMasterTable'])[1]//tbody)[last()]//tr[1]//td[5]");
 	By tableStateName = By.xpath("((//table[@class='rgMasterTable'])[1]//tbody)[last()]//tr[1]//td[4]");
@@ -45,28 +45,33 @@ public class AddProjectCityStatePage extends BasePage {
 	String tableValue = "//table//tbody//tr//td[text()='%s']";
 
 	public void setState(String state) {
-		util.selectDropDownValue(drpState, state);
+		util.inputText(drpState, state);
+		util.pressENTERkey();
 	}
 
 	public void setCountry(String country) {
-		util.selectDropDownValue(drpCountry, country);
+		util.inputText(drpCountry, country);
+		util.pressENTERkey();
 	}
 
 	public void updateState(String updateState) {
 		util.selectDropDownValue(EditState, updateState);
+		log("update State"+updateState);
 	}
 	public void updateCountry(String updateCity) {
 		util.selectDropDownValue(EditCountry, updateCity);
+		log("update State"+updateCity);
 	}
 	public void clickInsetButton() {
 		util.click(btnInsert);
 	}
 
-	public void addStateAndContryInformation(Map<String, String> map) {
+	public void addStateAndContryInformation(Map<String, String> map) throws InterruptedException {
 		commonFunction.navigateToProjectDeails();
 		util.waitUntilElementDisplay(btnAddNewRecord);
 		util.click(btnAddNewRecord);
 		setState(map.get("StateName"));
+		Thread.sleep(2000);
 		setCountry(map.get("CountryName"));
 		clickInsetButton();
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
@@ -85,29 +90,29 @@ public class AddProjectCityStatePage extends BasePage {
 	public void updateStateAndContryInformation(Map<String, String> map) {
 		util.waitUntilElementDisplay(btnEdit);
 		util.click(btnEdit);
-		updateState(map.get("StateName"));
-		updateCountry(map.get("CountryName"));
+		updateState(map.get("EditStateName"));
+		updateCountry(map.get("EditCountryName"));
 		util.waitFor(2000);
 		util.click(btnUpdateCountry);
 		util.waitUntilElementDisappear(btnUpdateCountry);
 		String countryName = util.getText(tableCountryName);
 		String stateName = util.getText(tableStateName);
 		
-		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
-		Assert.assertEquals(countryName, map.get("CountryName"), "Verify country name");
-		Assert.assertEquals(stateName, map.get("StateName"), "Verify state name");
+		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Changes saved successfully!");
+		Assert.assertEquals(countryName, map.get("EditCountryName"), "Verify country name");
+		Assert.assertEquals(stateName, map.get("EditCountryAlias"), "Verify state name");
 //		if(util.isElementPresent(changesSavedSuccessfully)){
 //			ReportsClass.logStat(Status.PASS, "State and Country Information is updated sucessfully !!!");
 //		} else {
 //			ReportsClass.logStat(Status.FAIL, "State and Country Information is not updated sucessfully !!!");
 //		}
-		if(countryName.equals(map.get("CountryName"))){
+		if(countryName.equals(map.get("EditCountryName"))){
 			ReportsClass.logStat(Status.PASS, "Country information is updated sucessfully !!!");
 		} else {
 			ReportsClass.logStat(Status.FAIL, "Country information is not  updated sucessfully !!!");
 		}
 		
-		if(stateName.equals(map.get("StateName"))){
+		if(stateName.equals(map.get("EditCountryAlias"))){
 			ReportsClass.logStat(Status.PASS, "State information is updated sucessfully !!!");
 		} else {
 			ReportsClass.logStat(Status.FAIL, "State information is not  updated sucessfully !!!");

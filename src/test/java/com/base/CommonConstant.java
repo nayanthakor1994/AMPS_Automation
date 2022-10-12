@@ -13,6 +13,7 @@ public class CommonConstant {
 	public static String addedCost;
 	
 	public static String sheetName;
+	public static String NA = "NA";
 	
 	//Excel sheet names
 	
