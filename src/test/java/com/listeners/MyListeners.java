@@ -3,8 +3,11 @@ package com.listeners;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -23,6 +26,8 @@ import com.base.BasePage;
 import com.base.DriverFactory;
 import com.util.ReportsClass;
 
+import atu.testrecorder.ATUTestRecorder;
+import atu.testrecorder.exceptions.ATUTestRecorderException;
 import extentReports.ExtentManager;
 import extentReports.ExtentTestManager;
 
@@ -33,6 +38,7 @@ public class MyListeners extends BasePage implements ITestListener {
 	int extentFailCount = 0;
 	int extentTestTotal = 0;
 	int extentTestSkipped = 0;
+	ATUTestRecorder recorder;
 	
 	@Override
 	public void onTestStart(ITestResult result) {
@@ -45,6 +51,28 @@ public class MyListeners extends BasePage implements ITestListener {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// Start Recording
+		try {
+			if (System.getProperty("isVideo").equals("true")) {
+				DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH-mm-ss");
+				Date date = new Date();
+				try {
+					recorder = new ATUTestRecorder(System.getProperty("user.dir") + "\\Videos\\",
+							result.getName() + "-" + dateFormat.format(date), false);
+				} catch (Exception e) {
+					ExtentTestManager.fail("Error in finding the location of the video.");
+				}
+				try {
+					recorder.start();
+				} catch (Exception e) {
+					ExtentTestManager.fail("Error in starting the video");
+				}
+			}
+		} catch (Exception e1) {
+			System.out.println("Video recorder parameter is not set");
+		}
+		
 	}
 
 	@Override
@@ -113,7 +141,19 @@ public class MyListeners extends BasePage implements ITestListener {
 
 	@Override
 	public void onFinish(ITestContext context) {
+		try {
+			if (System.getProperty("isVideo").equals("true")) {
+				try {
+					recorder.stop();
+				} catch (ATUTestRecorderException e) {
+					ExtentTestManager.fail("Failed to save video");
+				}
+			}
+		} catch (Exception e1) {
+			System.out.println("Video recorder parameter is not set");
+		}
 		extent.flush();	
+		
 		if(context.getFailedTests().size()>0) {
 			throw new TestNGException("Failures present");
 		}

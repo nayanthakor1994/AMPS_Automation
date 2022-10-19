@@ -99,7 +99,7 @@ public class BasePage extends CommonConstant {
 		} else {
 			browserName = "chrome";
 		}
-		DriverFactory.setTLDriver(browser);
+		DriverFactory.setTLDriver(browserName);
 		driver = getDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

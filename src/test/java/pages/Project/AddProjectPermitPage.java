@@ -71,6 +71,7 @@ public class AddProjectPermitPage extends BasePage {
 			log("STEP 1: The panel fields displays", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 1: The panel does not expand ", Status.FAIL);
+			throw new RuntimeException("Failed in step 1");
 		}
 		Thread.sleep(3000);
 		try {
@@ -78,12 +79,14 @@ public class AddProjectPermitPage extends BasePage {
 			log("STEP 2: Value added diplays in the Agency Name column field", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 2: Added value does not display in the field. ", Status.FAIL);
+			throw new RuntimeException("Failed in step 2");
 		}
 		try {
 			setPermitNumber(map.get(Excel.PermitNumber));
 			log("STEP 3: Value added diplays in the Permit Number column  field", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3: Added value does not display in the field.  ", Status.FAIL);
+			throw new RuntimeException("Failed in step 3");
 		}
 		util.click(btnInsert);
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.PermitNumber)))) {
@@ -92,6 +95,7 @@ public class AddProjectPermitPage extends BasePage {
 		} else {
 			log("STEP 4: ProjectPermit is not added sucessfully ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "ProjectPermit is not added sucessfully !!!");
+			throw new RuntimeException("Failed in step 4");
 		}
 
 	}
@@ -102,6 +106,7 @@ public class AddProjectPermitPage extends BasePage {
 			log("STEP 5: added value diplays in the comment column field ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 5: added  value does not displayed in the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step 5");
 		}
 		util.click(btnUpdate);
 
@@ -111,6 +116,7 @@ public class AddProjectPermitPage extends BasePage {
 		} else {
 			log("STEP 6: ProjectPermit is not Edit sucessfully ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "ProjectPermit is not Edit sucessfully !!!");
+			throw new RuntimeException("Failed in step 6");
 		}
 
 	}
@@ -126,6 +132,7 @@ public class AddProjectPermitPage extends BasePage {
 			log("STEP 12:upon popup close, auto refresh the panel to display updated information  ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 12: Autorefresh of the panel does not happen ", Status.FAIL);
+			throw new RuntimeException("Failed in step 12");
 		}
 		util.waitFor(2000);
 		try {
@@ -133,6 +140,7 @@ public class AddProjectPermitPage extends BasePage {
 			log("STEP 13: Delete popup window Open ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 13: The delete pop window does not display ", Status.FAIL);
+			throw new RuntimeException("Failed in step 13");
 		}
 		util.waitFor(2000);
 
@@ -145,6 +153,7 @@ public class AddProjectPermitPage extends BasePage {
 			log("STEP 14: ProjectPermit is not deleted sucessfully ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL,
 					map.get("Interconnection Grid") + ": Interconnection Information is not deleted sucessfully !!!");
+			throw new RuntimeException("Failed in step 14");
 		}
 
 	}

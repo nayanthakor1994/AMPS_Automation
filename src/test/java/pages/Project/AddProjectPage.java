@@ -170,91 +170,105 @@ public class AddProjectPage extends BasePage {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			log("STEP 1: User cannot see the option in Menu ", Status.FAIL);
+			throw new RuntimeException("Failed in step 1");
 		}
 		try {
 			commonFunction.clickOnAddButton();
 			log("STEP 2: User can click on the add button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 2: User cannot see the add button  ", Status.FAIL);
-			
+			throw new RuntimeException("Failed in step 2");
 		}
 		try {
 			setProjectName(map.get(Excel.ProjectName));
 			log("STEP 3: User can enter the value in the text field ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3: User cannot add value  to the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step 3");
 		}
 		try {
 			setProjectNumber();
 			log("STEP 4: User can enter the value in the Project number  field", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4:  User cannot add value  to the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step 4");
 		}
 		try {
 			setProjectType(map.get(Excel.ProjectType));
 			log("STEP 5:  Added value displays in the field", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 5:  User  cannot select  value  from the DD ", Status.FAIL);
+			throw new RuntimeException("Failed in step 5");
 		}
 		try {
 			setAbbreviation(map.get(Excel.Abbreviation));
 			log("STEP 6:  User can enter Abbreviation value in the field    ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 6: User cannot add Abbreviation value in the field  ", Status.FAIL);
+			throw new RuntimeException("Failed in step 6");
 		}
 		try {
 			setArea(map.get(Excel.Area));
 			log("STEP 7: Added Area value displays in the field    ", Status.PASS);
 		} catch (InterruptedException e) {
 			log("STEP 7: User cannot add Area value in the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step 7");
 		}
 		try {
 			setClient(map.get(Excel.Client));
 			log("Added Client value displays in the field", Status.PASS);
 		} catch (Exception e) {
 			log(" User cannot Client value displays in the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step 8");
 		}
 		try {
 			setProjectStatus(map.get(Excel.ProjectStatus));
 			log( "Added ProjectStatus value displays in the field", Status.PASS);
 		} catch (Exception e) {
 			log("User cannot ProjectStatus value displays in the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step 9");
 		}
 		try {
 			setTemporaryROW(map.get(Excel.TemporaryROW));
 			log("Added TemporaryROW value displays in the field", Status.PASS);
 		} catch (Exception e) {
 			log("User cannot TemporaryROW value displays in the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step Added TemporaryROW ");
 		}
 		try {
 			setPermanentROW(map.get(Excel.PermanentROW));
 			log("Added PermanentROW value displays in the field", Status.PASS);
 		} catch (Exception e) {
 			log("User cannot PermanentROW value displays in the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step Added PermanentROW ");
 		}
 		try {
 			setUnit(map.get(Excel.Unit));
 			log("Added Unit value displays in the field", Status.PASS);
 		} catch (Exception e) {
 			log("User cannot Unit value displays in the field ", Status.FAIL);
+			throw new RuntimeException("Failed in step Added Unit ");
 		}
 		try {
 			commonFunction.clickOnSaveButton();
 			log("STEP 8: User can navigate to the Project details", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 8: Project is not created ", Status.FAIL);
+			throw new RuntimeException("Failed in step 8");
 		}
 		try {
 			commonFunction.clickOnArchieveButton();
 			log("STEP 9: The button text should be changed to UNARCHIVE", Status.PASS);
 		} catch (InterruptedException e) {
 			log("STEP 9: Button text or color does not change ", Status.FAIL);
+			throw new RuntimeException("Failed in step 9 ");
 		}
 		try {
 			commonFunction.clickOnSaveButton();
 			log("STEP 10: Project is unarchive and does not display in Poject list DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 10: Project still displays under the project list", Status.FAIL);
+			throw new RuntimeException("Failed in step 10 ");
 		}
 		verifySummaryALT();
 	}

@@ -49,7 +49,9 @@ public class AddProjectWorkflowPage extends BasePage {
 			"//div[@id='idManageApproval_tabStrip']//a[normalize-space()='Linked Approvals' and not(contains(@class,'rtsDisabled'))]");
 	By tabAssociatedRecords = By.xpath(
 			"//div[@id='idManageApproval_tabStrip']//a[normalize-space()='Associated Records' and not(contains(@class,'rtsDisabled'))]");
-
+	By tabLinkApproval = By.xpath(
+			"//div[@id='idManageApproval_tabStrip']//a[normalize-space()='Linked Approvals' and not(contains(@class,'rtsDisabled'))]");
+	By excelIcon = By.xpath("//a[contains(@id,'DownloadEXCELNew')]");
 	// Document tab
 	By iframeDocument = By.xpath("//iframe[@name='AddDocuments']");
 	By btnAddDocument = By.xpath("//input[@id='idManageApproval_btnAddDocuments']");
@@ -158,6 +160,14 @@ public class AddProjectWorkflowPage extends BasePage {
 		util.click(tabAssociatedRecords);
 	}
 
+	public void ClickonLinkApprovaltab() {
+		util.click(tabLinkApproval);
+	}
+
+	public void ClickOnExcel() {
+		util.click(excelIcon);
+	}
+
 	public void selectProject(String value) {
 		util.selectValueFromDropdown(drpAddProjects, value);
 		util.click(drpAddProjectsClose);
@@ -264,15 +274,15 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 7: Select the document category", Status.FAIL);
 			throw new RuntimeException("Failed in step 7");
 		}
-		
+
 		try {
 			setDescription(map.get(Excel.DocComments));
 			log("STEP 8: Entered a Title of document", Status.PASS);
-		} catch (Exception e) {	
+		} catch (Exception e) {
 			log("STEP 8: Entered a Title of document", Status.FAIL);
 			throw new RuntimeException("Failed in step 8");
 		}
-		
+
 		try {
 			uploadFile();
 			util.waitFor(2000);
@@ -281,7 +291,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 9: Document is not uploaded", Status.FAIL);
 			throw new RuntimeException("Failed in step 9");
 		}
-		
+
 		try {
 			util.click(loadDocumentFile);
 			util.waitUntilElementDisplay(documentSuccessMessage);
@@ -313,7 +323,7 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 12: select the category", Status.FAIL);
 			throw new RuntimeException("Failed in step 12");
 		}
-		
+
 		try {
 			log("STEP 13: Enter the description", Status.PASS);
 		} catch (Exception e) {
@@ -340,21 +350,39 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 15: Clicked on edit link", Status.FAIL);
 			throw new RuntimeException("Failed in step 15");
 		}
+
+		try {
+			ClickonLinkApprovaltab();
+			log("STEP 16: Navigate to the Link Approval tab", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 16: Navigate to the Link Approval tab", Status.FAIL);
+			throw new RuntimeException("Failed in step 16");
+		}
+
+		try {
+			Assert.assertTrue(util.isElementPresent(excelIcon), "Unable to CLick on Excel Download");
+			util.click(excelIcon);
+			log("STEP 17: Clicked on Download Excel file", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 17: Clicked on Download Excel file", Status.FAIL);
+			throw new RuntimeException("Failed in step 15");
+		}
+
 		try {
 			// Associated record tab
 			clickOnAssociatedRecordsTab();
-			log("STEP 16: Navigate to the associated records tab", Status.PASS);
+			log("STEP 18: Navigate to the associated records tab", Status.PASS);
 		} catch (Exception e) {
-			log("STEP 16: Navigate to the associated records tab", Status.FAIL);
+			log("STEP 18: Navigate to the associated records tab", Status.FAIL);
 			throw new RuntimeException("Failed in step 16");
 		}
-		
+
 		try {
 			selectProject(map.get(Excel.ProjectName));
 			clickOnGoProject();
-			log("STEP 17: Selected a project from DD and click on GO button", Status.PASS);
+			log("STEP 19: Selected a project from DD and click on GO button", Status.PASS);
 		} catch (Exception e) {
-			log("STEP 17: Selected a project from DD and click on GO button", Status.FAIL);
+			log("STEP 19: Selected a project from DD and click on GO button", Status.FAIL);
 			throw new RuntimeException("Failed in step 17");
 		}
 
@@ -366,9 +394,9 @@ public class AddProjectWorkflowPage extends BasePage {
 			Thread.sleep(5000);
 			Assert.assertEquals(getListOfTractMessage(), "Requested association created successfully",
 					"Success message is mismatch");
-			log("STEP 18: Select a Tract list from the DD and click on Add ", Status.PASS);
+			log("STEP 20: Select a Tract list from the DD and click on Add ", Status.PASS);
 		} catch (Exception e) {
-			log("STEP 18: Select a Tract list from the DD and click on Add ", Status.FAIL);
+			log("STEP 20: Select a Tract list from the DD and click on Add ", Status.FAIL);
 			throw new RuntimeException("Failed in step 18");
 		}
 		if (isAllSteps) {
@@ -377,190 +405,33 @@ public class AddProjectWorkflowPage extends BasePage {
 				Thread.sleep(5000);
 				Assert.assertEquals(getListTractUsrMessage(), "Changes saved successfully!",
 						"Success message is mismatch");
-				log("STEP 19: Click on delete (X) icon", Status.PASS);
+				log("STEP 21: Click on delete (X) icon", Status.PASS);
 			} catch (Exception e) {
-				log("STEP 19 Click on delete (X) icon", Status.FAIL);
+				log("STEP 21 Click on delete (X) icon", Status.FAIL);
 				throw new RuntimeException("Failed in step 19");
 			}
 			try {
 				util.switchToDefaultContent();
-				log("STEP 20: Click on ok button", Status.PASS);
+				log("STEP 22: Click on ok button", Status.PASS);
 			} catch (Exception e) {
-				log("STEP 20: Click on ok button", Status.FAIL);
+				log("STEP 22: Click on ok button", Status.FAIL);
 				throw new RuntimeException("Failed in step 20");
 			}
 		}
-	}	
-	
-		public void addNewWorkflow2To18(Map<String, String> map) throws InterruptedException {
-			log("Start step 2 to 18 :");
-			log("Start step 21 :");
-			if (!util.isElementVisible(addProjectApprovals)) {
-				util.click(projectApprovals);
-				if (!util.isElementVisible(addProjectApprovals)) {
-					util.click(projectApprovals);
-				}
-			}
-			try {
-				clickOnAddNewRecord();
-				log("STEP 1: The panel fields displays", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 1: The panel does not expand", Status.FAIL);
-			}
-			try {
-				util.waitForWebElementToBePresent(iframeApproval);
-				util.switchToIframe(iframeApproval);
-				selectApprovalType(map.get(Excel.ApprovalType));
-				log("STEP 2: he form opens in a new pop up window", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 2: The Workflow cannot be sleected", Status.FAIL);
-			}
-			try {
-				selectTemplate(map.get(Excel.Template));
-				log("STEP 3: Template added diplays in the select template DD column field", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 3: Added value does not display in the field", Status.FAIL);
-			}
-
-			try {
-				selectReportFormat(map.get(Excel.ReportFormat));
-				log("STEP 4: Format selected radio button is checked/clicked  a", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 4: Not able to selecte the format type", Status.FAIL);
-			}
-
-			try {
-				clickOnSaveApprovals();
-				log("STEP 5: The added values are saved", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 5: Added values are not saved", Status.FAIL);
-			}
-
-			try {
-				clickOnDocumentTab();
-				clickOnAddDocument();
-				log("STEP 6: Document popup window should display with external documents tab ", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 6: The document pop window does not display", Status.FAIL);
-			}
-
-			try {
-				util.switchToIframe(iframeDocument);
-				selectCategory(map.get(Excel.DocCategory));
-				log("STEP 7: Value added diplays in the field ", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 7: Added value does not display in the field", Status.FAIL);
-			}
-			
-			try {
-				setDescription(map.get(Excel.DocComments));
-				log("STEP 8: User can enter a value in the field ", Status.PASS);
-			} catch (Exception e) {	
-				log("STEP 8: User cannot add a value in the field", Status.FAIL);
-			}
-			
-			try {
-				uploadFile();
-				util.waitFor(2000);
-				log("STEP 9: User can upload document from the system ", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 9: User cannot upload a document", Status.FAIL);
-			}
-			
-			try {
-				util.click(loadDocumentFile);
-				util.waitUntilElementDisplay(documentSuccessMessage);
-				String msg = util.getText(documentSuccessMessage);
-				Assert.assertEquals(msg, "Loaded: test.txt", "Success message is mismatch");
-				util.switchToDefaultContent();
-				util.switchToIframe(iframeApproval);
-				util.click(btnCloseDocument);
-				log("STEP 10: document is loaded", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 10: docuemnt could not be uploaded", Status.FAIL);
-			}
-
-			// Notes Tab
-			try {
-				clickOnNoteTab();
-				clickOnAddNote();
-				log("STEP 11: Selected the Notes  tab and click on add button", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 11: Not Selected the Notes  tab and click on add button", Status.FAIL);
-			}
-			// select filters
-			try {
-				util.switchToIframe(iframeNotes);
-				log("STEP 12: Value added diplays in the field", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 12: Added value does not display in the field", Status.FAIL);
-			}
-			
-			try {
-				log("STEP 13: Enter the description", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 13: Not Enter the description", Status.FAIL);
-			}
-			try {
-				clickOnSaveNote();
-				Assert.assertEquals(getNotesMessage(), "Note submitted and auto-approved.", "Success message is mismatch");
-				log("STEP 14: Clicked on Save Note button", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 14: Not Clicked on Save Note button", Status.FAIL);
-			}
-			try {
-				util.switchToDefaultContent();
-				util.switchToIframe(iframeApproval);
-				clickOnCloseNote();
-				clickOnRefreshNote();
-				// Verify added record
-				Assert.assertTrue(util.isElementPresent(addedApprovedNote), "Record is not added properly");
-				log("STEP 15: Clicked on edit link", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 15: Not Clicked on edit link", Status.FAIL);
-			}
-			try {
-				// Associated record tab
-				clickOnAssociatedRecordsTab();
-				log("STEP 16: Navigate to the associated records tab", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 16: Not Navigate to the associated records tab", Status.FAIL);
-			}
-			
-			try {
-				selectProject(map.get(Excel.ProjectName));
-				clickOnGoProject();
-				log("STEP 17: Selected a project from DD and click on GO button", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 17: Not Selected a project from DD and click on GO button", Status.FAIL);
-			}
-
-			try {
-				selectListOfTrack(map.get(Excel.ListOfTrack));
-				clickOnListOfTract();
-				Thread.sleep(5000);
-				refreshListOfTract();
-				Thread.sleep(5000);
-				Assert.assertEquals(getListOfTractMessage(), "Requested association created successfully",
-						"Success message is mismatch");
-				log("STEP 18: Select a Tract list from the DD and click on Add ", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 18: Not Select a Tract list from the DD and click on Add ", Status.FAIL);
-			}
 	}
 
 	public void submitTheFormForReview() {
 		try {
-		//	util.switchToIframe(iframeApproval);
+			// util.switchToIframe(iframeApproval);
 			util.click(tabApproval);
 			util.click(btnSubmitForReview);
 			util.waitForWebElementToBePresent(autoApproved, 30);
 			Assert.assertTrue(util.isElementPresent(autoApproved), "Form is not auto approved");
-			log("STEP 22: Click on submit for review on the form", Status.PASS);
+			log("STEP 23: Click on submit for review on the form", Status.PASS);
 			log("Form is auto approved");
 			util.switchToDefaultContent();
 		} catch (Exception e) {
-			log("STEP 22: Not Click on submit for review on the form", Status.FAIL);
+			log("STEP 23: Not Click on submit for review on the form", Status.FAIL);
 		}
 	}
 
@@ -572,14 +443,13 @@ public class AddProjectWorkflowPage extends BasePage {
 	public void verifyStoredRecord(String workflow) {
 //		By locator = By.xpath("//a[normalize-space()='Project Forms']/following-sibling::*//table[contains(@id,'Workflows_radYALGridControl')]//td[text()='"+value+"']");
 		By locator = By.xpath("//td[text()='Approved']/..//td[text()='" + workflow + "']");
-		if(util.isElementPresent(locator)) {
-			log("STEP 22:  Status changed to 'Approved'  ", Status.PASS);
+		if (util.isElementPresent(locator)) {
+			log("STEP 24:  Status changed to 'Approved'  ", Status.PASS);
+		} else {
+			log("STEP 24: orkflow is not autoapproved ", Status.FAIL);
 		}
-		else {
-			log("STEP 22: orkflow is not autoapproved ", Status.FAIL);
-		}
-		
-		//Assert.assertTrue(util.isElementPresent(locator), "Record is not saved");
+
+		// Assert.assertTrue(util.isElementPresent(locator), "Record is not saved");
 	}
 
 }

@@ -43,6 +43,7 @@ public class AddOpertaingCompanyPage extends BasePage {
 			log("STEP 1: Added Grantee displays", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 1: Added grantee is not displayed in the pane  ", Status.FAIL);
+			throw new RuntimeException("Failed in step 1");
 		}
 		
 		
