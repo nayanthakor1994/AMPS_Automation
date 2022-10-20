@@ -76,12 +76,14 @@ public class AddProjectStateCountryPage extends BasePage {
 			log("STEP 1: The panel fields displays", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 1: Project states and County information panel is not available", Status.FAIL);
+			throw new RuntimeException("Failed in step 1 ");
 		}
 		try {
 			setState(map.get("StateName"));
 			log("STEP 2:  State added diplays in the state column    ", Status.PASS);
 		} catch (InterruptedException e) {
 			log("STEP 2: Added state is not displayed in the field", Status.FAIL);
+			throw new RuntimeException("Failed in step 2 ");
 		}
 		Thread.sleep(2000);
 		try {
@@ -89,12 +91,14 @@ public class AddProjectStateCountryPage extends BasePage {
 			log("STEP 3: County added diplays in the column field", Status.PASS);
 		} catch (InterruptedException e) {
 			log("STEP 3:  Added county is not displayed in the field", Status.FAIL);
+			throw new RuntimeException("Failed in step 3");
 		}
 		try {
 			clickInsetButton();
 			log("STEP 4: The added values displays under state and county column in the grid and ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4: Added values does  not displayed in the grid", Status.FAIL);
+			throw new RuntimeException("Failed in step 4 ");
 		}
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
@@ -103,6 +107,7 @@ public class AddProjectStateCountryPage extends BasePage {
 		} else {
 			log("State and Country Information message not displayed", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "State and Country Information message not displayed");
+			throw new RuntimeException("Failed in State and Country Information message not displayed ");
 		}
 		if (util.isElementPresent(String.format(tableValue, map.get("CountryName")))) {
 
@@ -111,6 +116,8 @@ public class AddProjectStateCountryPage extends BasePage {
 		} else {
 			log("State and Country Information is not added sucessfully", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "State and Country Information is not added sucessfully !!!");
+			throw new RuntimeException("Failed in State and Country Information is not added sucessfully ");
+			
 		}
 	}
 
@@ -122,7 +129,8 @@ public class AddProjectStateCountryPage extends BasePage {
 			log("update value diplays in the field     ", Status.PASS);
 		} catch (Exception e) {
 			log("updated value does not displayed in the field. OR ", Status.FAIL);
-			// TODO Auto-generated catch block
+			throw new RuntimeException("updated value does not displayed in the field ");
+
 		}
 		try {
 			updateCountry(map.get("EditCountryName"));
@@ -138,7 +146,7 @@ public class AddProjectStateCountryPage extends BasePage {
 			log("Click On update", Status.PASS);
 		} catch (Exception e) {
 			log("Upate button not clicable", Status.FAIL);
-			// TODO Auto-generated catch block
+			throw new RuntimeException("Upate button not clicable ");
 		}
 		util.waitUntilElementDisappear(btnUpdateCountry);
 		String countryName = util.getText(tableCountryName);
@@ -158,6 +166,7 @@ public class AddProjectStateCountryPage extends BasePage {
 		} else {
 			log("STEP 6: Country information is not  updated sucessfully", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "Country information is not  updated sucessfully !!!");
+			throw new RuntimeException("Faild in STEP 6 :Country information is not  updated sucessfully ");
 		}
 
 		if (stateName.equals(map.get("EditCountryAlias"))) {
@@ -166,6 +175,7 @@ public class AddProjectStateCountryPage extends BasePage {
 		} else {
 			log("STEP 6: State information is not  updated sucessfully", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "State information is not  updated sucessfully !!!");
+			throw new RuntimeException("Faild in STEP 6 :State information is not  updated sucessfully  ");
 		}
 
 		// Delete updated country-state
@@ -186,6 +196,7 @@ public class AddProjectStateCountryPage extends BasePage {
 		} else {
 			log("STEP 1: State and Country Information is not deleted sucessfully", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "State and Country Information is not deleted sucessfully !!!");
+			throw new RuntimeException("State and Country Information is not deleted sucessfully ");
 		}
 
 	}

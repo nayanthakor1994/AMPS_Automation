@@ -86,6 +86,7 @@ public class AddKeyDatePage extends BasePage {
 			log("STEP 1:  The panel fields displays", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 1: The panel does not expand  ", Status.FAIL);
+			throw new RuntimeException("Failed in step 1");
 		}
 		setExpectedDate(map.get(Excel.ExpectedDate));
 		setActualDate(map.get(Excel.ActualDate));
@@ -105,6 +106,7 @@ public class AddKeyDatePage extends BasePage {
 			System.out.println("Failed to Add Key Date !!!");
 			log("STEP 2: Failed to Add Key Date  ", Status.FAIL);
 			ReportsClass.logStat(Status.FAIL, "Failed to Add Key Date !!!");
+			throw new RuntimeException("Failed in step 2");
 		}
 		Assert.assertTrue(getEditRotaltyProcessMsg.contains("Changes saved successfully!"),
 				"Failed to Add Key Date !!!");

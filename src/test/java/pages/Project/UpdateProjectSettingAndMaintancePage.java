@@ -46,6 +46,7 @@ public class UpdateProjectSettingAndMaintancePage extends BasePage {
 					log("STEP 1: User can view   the listed field", Status.PASS);
 				} catch (Exception e) {
 					log("STEP 1: Field does not open/expand ", Status.FAIL);
+					throw new RuntimeException("Failed in step 1 ");
 				}
 				setRoyaltyProcessing(map.get("Royalty Processing"));
 				util.click(btnUpdate);
@@ -62,6 +63,7 @@ public class UpdateProjectSettingAndMaintancePage extends BasePage {
 					System.out.println("Failed to Edit Royalty Processing Changes !!!");
 					log("STEP 2: Failed to Edit Royalty Processing Changes ", Status.FAIL);
 					ReportsClass.logStat(Status.FAIL, "Failed to Edit Royalty Processing Changes !!!");
+					throw new RuntimeException("Failed in step 2 ");
 				}
 				Assert.assertTrue(getEditRotaltyProcessMsg.contains("Changes saved successfully!"),
 						"Failed to Edit Royalty Processing Changes !!!");
