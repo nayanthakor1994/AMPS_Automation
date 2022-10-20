@@ -10,10 +10,8 @@ import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 import com.base.CommonConstant;
-import com.util.TestUtil;
-
 import com.util.CommonFunction;
-import com.util.ReportsClass;
+import com.util.TestUtil;
 
 public class AddInterconnectionInformationPage extends BasePage {
 	TestUtil util;
@@ -134,12 +132,9 @@ public class AddInterconnectionInformationPage extends BasePage {
 		if (getInterconnectionInfoSuccessMsg.contains("Changes saved successfully!")) {
 			System.out.println("Interconnection Information Saved Successfully !!!");
 			log("STEP 4: Interconnection Information Saved Successfully ", Status.PASS);
-			ReportsClass.logStat(Status.PASS,
-					map.get("Interconnection Grid") + ": Interconnection Information Saved Successfully !!!");
 		} else {
 			System.out.println("Failed to Save Interconnection Information !!!");
 			log("STEP 4:  Failed to Save Interconnection Information  ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, map.get("Cost") + ": Failed to Save Interconnection Information !!!");
 			throw new RuntimeException("Failed in step 4");
 		}
 		Assert.assertTrue(getInterconnectionInfoSuccessMsg.contains("Changes saved successfully!"),
@@ -183,12 +178,8 @@ public class AddInterconnectionInformationPage extends BasePage {
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
 			log("STEP 6: Interconnection information updated successfully ", Status.PASS);
-			ReportsClass.logStat(Status.PASS,
-					map.get("EditInterconnection Grid") + ": Interconnection information updated successfully");
 		} else {
 			log("STEP 6:  Interconnection information does not updated successfully  ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, map.get("EditInterconnection Grid")
-					+ ": Interconnection information does not updated successfully");
 			throw new RuntimeException("Failed in step 6");
 		}
 		Assert.assertTrue(util.isElementPresent(String.format(tableRecord, map.get("EditInterconnection Grid"))));
@@ -222,7 +213,6 @@ public class AddInterconnectionInformationPage extends BasePage {
 			util.selectValueFromDropdown2("test doc cat", drpCategory);
 			log("STEP 8: Value added diplays in the field : Category ", Status.PASS);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log("STEP 8:  Added value does not display in the field : Category  ", Status.FAIL);
 			throw new RuntimeException("Failed in step 8");
 		}
@@ -230,7 +220,6 @@ public class AddInterconnectionInformationPage extends BasePage {
 			util.inputText(txtDescription, "Test Automation");
 			log("STEP 9: User can enter a value in the field    ", Status.PASS);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log("STEP 9:  User cannot add a value in the field   ", Status.FAIL);
 			throw new RuntimeException("Failed in step 9");
 		}
@@ -240,7 +229,6 @@ public class AddInterconnectionInformationPage extends BasePage {
 			util.click(loadDocumentFile);
 			log("STEP 10: User can upload document from the system  ", Status.PASS);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log("STEP 10:  User cannot upload a document  ", Status.FAIL);
 			throw new RuntimeException("Failed in step 10");
 		}
@@ -248,11 +236,8 @@ public class AddInterconnectionInformationPage extends BasePage {
 		util.waitUntilElementDisplay(documentSuccessMessage);
 		if (util.getText(documentSuccessMessage).contains("Loaded: test.txt")) {
 			log("STEP 11: Document Saved Successfully ", Status.PASS);
-			ReportsClass.logStat(Status.PASS, map.get("Interconnection Grid") + ": Document Saved Successfully !!!");
 		} else {
 			log("STEP 11:  Document does not saved Successfully  ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL,
-					map.get("Interconnection Grid") + ": Document does not saved Successfully !!!");
 			throw new RuntimeException("Failed in step 11");
 		}
 		util.switchToDefaultContent();
@@ -260,7 +245,6 @@ public class AddInterconnectionInformationPage extends BasePage {
 			log("STEP 12: upon popup close, auto refresh the panel to display updated information ", Status.PASS);
 			util.click(btnDocumentClose);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log("STEP 12:  Autorefresh of the panel does not happen  ", Status.FAIL);
 			throw new RuntimeException("Failed in step 12");
 		}
@@ -274,7 +258,6 @@ public class AddInterconnectionInformationPage extends BasePage {
 			util.click(viewDeleteBtn);
 			log("STEP 13:  Delete popup window should display ", Status.PASS);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			log("STEP 13:  The delete pop window does not display  ", Status.FAIL);
 			throw new RuntimeException("Failed in step 13");
 		}
@@ -284,7 +267,6 @@ public class AddInterconnectionInformationPage extends BasePage {
 			util.click(deleteOk);
 			log("STEP 14: Deleted record does not display in the grid and ", Status.PASS);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log("STEP 14:  Record does not display in grid  ", Status.FAIL);
 			throw new RuntimeException("Failed in step 14");
 		}
@@ -293,12 +275,8 @@ public class AddInterconnectionInformationPage extends BasePage {
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
 			log(" Interconnection Information is deleted sucessfully  ", Status.PASS);
-			ReportsClass.logStat(Status.PASS,
-					map.get("Interconnection Grid") + ": Interconnection Information is deleted sucessfully !!!");
 		} else {
 			log("Interconnection Information is not deleted sucessfully", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL,
-					map.get("Interconnection Grid") + ": Interconnection Information is not deleted sucessfully !!!");
 			throw new RuntimeException("Interconnection Information is not deleted sucessfully");
 		}
 

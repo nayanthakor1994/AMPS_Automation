@@ -1,8 +1,6 @@
 package page.Common;
 
-import java.time.Duration;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,9 +8,7 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
-import com.base.CommonConstant;
 import com.base.Excel;
-import com.util.ReportsClass;
 import com.util.TestUtil;
 
 public class LoginPage extends BasePage {
@@ -44,9 +40,9 @@ public class LoginPage extends BasePage {
 		setPassword(map.get(Excel.Password));
 		util.click(btnLogin);
 		if (util.isElementPresent(isLoginSuccess)) {
-			ReportsClass.logStat(Status.PASS, "Login Successfully !!!");
+			log("Login Successfully !!!", Status.PASS);
 		} else {
-			ReportsClass.logStat(Status.FAIL, "Failed Login !!!");
+			log("Failed Login !!!", Status.FAIL);
 		}
 		Assert.assertTrue((util.isElementPresent(isLoginSuccess)), "Failed Login !!!");
 	}

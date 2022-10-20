@@ -8,9 +8,8 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
-import com.util.TestUtil;
 import com.util.CommonFunction;
-import com.util.ReportsClass;
+import com.util.TestUtil;
 
 public class AddProjectStateCountryPage extends BasePage {
 	TestUtil util;
@@ -103,19 +102,14 @@ public class AddProjectStateCountryPage extends BasePage {
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
 			log(" State and Country Information message displyed", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "State and Country Information message displyed");
 		} else {
 			log("State and Country Information message not displayed", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "State and Country Information message not displayed");
 			throw new RuntimeException("Failed in State and Country Information message not displayed ");
 		}
 		if (util.isElementPresent(String.format(tableValue, map.get("CountryName")))) {
-
 			log("State and Country Information is added sucessfully", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "State and Country Information is added sucessfully !!!");
 		} else {
 			log("State and Country Information is not added sucessfully", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "State and Country Information is not added sucessfully !!!");
 			throw new RuntimeException("Failed in State and Country Information is not added sucessfully ");
 			
 		}
@@ -137,7 +131,6 @@ public class AddProjectStateCountryPage extends BasePage {
 			//log("STEP 1: The panel fields displays", Status.PASS);
 		} catch (Exception e) {
 			//log("STEP 1: Project states and County information panel is not available", Status.FAIL);
-			// TODO Auto-generated catch block
 			// e.printStackTrace();
 		}
 		util.waitFor(2000);
@@ -162,19 +155,15 @@ public class AddProjectStateCountryPage extends BasePage {
 //		}
 		if (countryName.equals(map.get("EditCountryName"))) {
 			log("STEP 6: Country information is updated sucessfully", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "Country information is updated sucessfully !!!");
 		} else {
 			log("STEP 6: Country information is not  updated sucessfully", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "Country information is not  updated sucessfully !!!");
 			throw new RuntimeException("Faild in STEP 6 :Country information is not  updated sucessfully ");
 		}
 
 		if (stateName.equals(map.get("EditCountryAlias"))) {
 			log("STEP 6: State information is updated sucessfully", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "State information is updated sucessfully !!!");
 		} else {
 			log("STEP 6: State information is not  updated sucessfully", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "State information is not  updated sucessfully !!!");
 			throw new RuntimeException("Faild in STEP 6 :State information is not  updated sucessfully  ");
 		}
 
@@ -192,10 +181,8 @@ public class AddProjectStateCountryPage extends BasePage {
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
 			log("STEP 1: State and Country Information is deleted sucessfully", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "State and Country Information is deleted sucessfully !!!");
 		} else {
 			log("STEP 1: State and Country Information is not deleted sucessfully", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "State and Country Information is not deleted sucessfully !!!");
 			throw new RuntimeException("State and Country Information is not deleted sucessfully ");
 		}
 

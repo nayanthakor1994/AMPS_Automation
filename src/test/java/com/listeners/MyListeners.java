@@ -5,10 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -21,10 +19,8 @@ import org.testng.ITestResult;
 import org.testng.TestNGException;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 import com.base.DriverFactory;
-import com.util.ReportsClass;
 
 import atu.testrecorder.ATUTestRecorder;
 import atu.testrecorder.exceptions.ATUTestRecorderException;
@@ -43,7 +39,7 @@ public class MyListeners extends BasePage implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		System.out.println("Test Case Started : "+result.getName());
-		ReportsClass.initialisation(result.getName());
+//		ReportsClass.initialisation(result.getName());
 		
 		try {
 			ExtentTestManager.createTest(result.getName());
@@ -78,7 +74,7 @@ public class MyListeners extends BasePage implements ITestListener {
 	@Override
 	public void onTestSuccess(ITestResult result) {
 		System.out.println("Test Case Passed : "+result.getName());
-		ReportsClass.logStat(Status.PASS, result.getMethod().getMethodName() + " Testcase passed...");
+//		ReportsClass.logStat(Status.PASS, result.getMethod().getMethodName() + " Testcase passed...");
 		
 		ExtentTestManager.pass(result.getMethod().getMethodName() + " Passed...");
 		extentPassCount++;
@@ -87,13 +83,13 @@ public class MyListeners extends BasePage implements ITestListener {
 	@Override
 	public void onTestFailure(ITestResult result) {
 		System.out.println("Test Case Failed : "+result.getName());
-		ReportsClass.logStat(Status.FAIL, "Failed with " + result.getThrowable());
-		try {
-			ReportsClass.attachScreenshot(getBase64ScreenshotString(getDriver()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		ReportsClass.logStat(Status.FAIL, result.getMethod().getMethodName() + " Testcase failed...");
+//		ReportsClass.logStat(Status.FAIL, "Failed with " + result.getThrowable());
+//		try {
+//			ReportsClass.attachScreenshot(getBase64ScreenshotString(getDriver()));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		ReportsClass.logStat(Status.FAIL, result.getMethod().getMethodName() + " Testcase failed...");
 		
 		
 		try {
@@ -154,13 +150,13 @@ public class MyListeners extends BasePage implements ITestListener {
 		}
 		extent.flush();	
 		
-		if(context.getFailedTests().size()>0) {
-			throw new TestNGException("Failures present");
-		}
-		
-		if(context.getSkippedTests().size()>0) {
-			throw new TestNGException("Skipped Tests present");
-		}
+//		if(context.getFailedTests().size()>0) {
+//			throw new TestNGException("Failures present");
+//		}
+//		
+//		if(context.getSkippedTests().size()>0) {
+//			throw new TestNGException("Skipped Tests present");
+//		}
 	}
 
 	@Override

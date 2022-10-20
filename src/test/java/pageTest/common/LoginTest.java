@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import com.base.BasePage;
 import com.util.CommonFunction;
 import com.util.ExcelUtils;
-import com.util.ReportsClass;
 
 import page.Common.LoginPage;
 
@@ -23,8 +22,6 @@ public class LoginTest extends BasePage {
 	public void setup() throws Exception {
 		 driver = getDriver();
 		objLogin = new LoginPage(driver);
-		ReportsClass.initialisation("Login_Test");
-
 	}
 
 	@Test

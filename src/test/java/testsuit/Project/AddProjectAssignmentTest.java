@@ -38,13 +38,13 @@ public class AddProjectAssignmentTest extends BasePage {
 		dashboardPage = new MyDashboardPage(driver);
 	}
 
-	@Test(dataProvider = "data-provider")
-	public void Add_Project_TC_05(String testName, String appURL, String env) throws Exception {
+	@Test()
+	public void Add_Project_TC_05() throws Exception {
 		log("TC05 : Add a Project Assignment");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);
-		String testcaseName = "ProjectAssignment" + env;
+		String testcaseName = "ProjectAssignment" + environment;
 		log("Data picked : " + testcaseName);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectAssignment,
 				testcaseName);

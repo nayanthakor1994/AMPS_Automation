@@ -10,7 +10,6 @@ import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 import com.base.Excel;
 import com.util.CommonFunction;
-import com.util.ReportsClass;
 import com.util.TestUtil;
 
 public class AddProjectPermitPage extends BasePage {
@@ -91,10 +90,8 @@ public class AddProjectPermitPage extends BasePage {
 		util.click(btnInsert);
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.PermitNumber)))) {
 			log("STEP 4: ProjectPermit is added sucessfully", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "ProjectPermit is added sucessfully !!!");
 		} else {
 			log("STEP 4: ProjectPermit is not added sucessfully ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "ProjectPermit is not added sucessfully !!!");
 			throw new RuntimeException("Failed in step 4");
 		}
 
@@ -112,17 +109,14 @@ public class AddProjectPermitPage extends BasePage {
 
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.Comment)))) {
 			log("STEP 6: ProjectPermit is Edit sucessfully ", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "ProjectPermit is Edit sucessfully !!!");
 		} else {
 			log("STEP 6: ProjectPermit is not Edit sucessfully ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "ProjectPermit is not Edit sucessfully !!!");
 			throw new RuntimeException("Failed in step 6");
 		}
 
 	}
 
 	public void addDocument(Map<String, String> map) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -147,12 +141,8 @@ public class AddProjectPermitPage extends BasePage {
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
 			log("STEP 14: ProjectPermit is deleted sucessfully ", Status.PASS);
-			ReportsClass.logStat(Status.PASS,
-					map.get("Interconnection Grid") + ": Interconnection Information is deleted sucessfully !!!");
 		} else {
 			log("STEP 14: ProjectPermit is not deleted sucessfully ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL,
-					map.get("Interconnection Grid") + ": Interconnection Information is not deleted sucessfully !!!");
 			throw new RuntimeException("Failed in step 14");
 		}
 

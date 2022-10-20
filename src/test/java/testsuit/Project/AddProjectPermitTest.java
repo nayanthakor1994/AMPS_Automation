@@ -37,13 +37,13 @@ public class AddProjectPermitTest extends BasePage {
 		dashboardPage = new MyDashboardPage(driver);
 	}
 
-	@Test(dataProvider = "data-provider")
-	public void Add_Project_Permit_TC_07(String testName, String appURL, String env) throws Exception {
+	@Test()
+	public void Add_Project_Permit_TC_07() throws Exception {
 		log("TC07 : Add a Project Permit");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);
-		String testcaseName = "ProjectPermit" + env;
+		String testcaseName = "ProjectPermit" + environment;
 		log("Data picked : " + testcaseName);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectPermit,
 				testcaseName);

@@ -646,7 +646,6 @@ public class TestUtil extends BasePage {
 			Select selct = new Select(driver.findElement(locator));
 			selct.selectByVisibleText(Value);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw new RuntimeException("Unable to select :"+Value);
 		}
 	}

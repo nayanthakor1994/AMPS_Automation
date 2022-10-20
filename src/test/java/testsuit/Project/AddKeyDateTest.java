@@ -35,14 +35,15 @@ public class AddKeyDateTest extends BasePage {
 		commonFunction = new CommonFunction(driver);
 	}
 
-	@Test(dataProvider = "data-provider")
-	public void Add_a_Key_Date_TC_06(String testName, String appURL, String env) throws Exception {
+	@Test()
+	public void Add_a_Key_Date_TC_06() throws Exception {
 		log("TC06 : Add a Key Date");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);
-		String testcaseName = "AddKey" + env;
+		String testcaseName = "AddKey" + environment;
 		log("Data picked : " + testcaseName);
+		map.clear();
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.KeyDate, testcaseName);
 		log("navigating to Add Key Date");
 		commonFunction.navigateToProjectDeails();

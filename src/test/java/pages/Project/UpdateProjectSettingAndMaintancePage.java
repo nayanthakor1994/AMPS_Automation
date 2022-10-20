@@ -11,8 +11,6 @@ import com.base.BasePage;
 import com.util.CommonFunction;
 import com.util.TestUtil;
 
-import com.util.ReportsClass;
-
 public class UpdateProjectSettingAndMaintancePage extends BasePage {
 
 	TestUtil util;
@@ -58,11 +56,9 @@ public class UpdateProjectSettingAndMaintancePage extends BasePage {
 				if (getEditRotaltyProcessMsg.contains("Changes saved successfully!")) {
 					System.out.println("Edit Royalty Processing Changes Successfully !!!");
 					log("STEP 2: Edit Royalty Processing Changes Successfully ", Status.PASS);
-					ReportsClass.logStat(Status.PASS, "Edit Royalty Processing Changes Successfully !!!");
 				} else {
 					System.out.println("Failed to Edit Royalty Processing Changes !!!");
 					log("STEP 2: Failed to Edit Royalty Processing Changes ", Status.FAIL);
-					ReportsClass.logStat(Status.FAIL, "Failed to Edit Royalty Processing Changes !!!");
 					throw new RuntimeException("Failed in step 2 ");
 				}
 				Assert.assertTrue(getEditRotaltyProcessMsg.contains("Changes saved successfully!"),

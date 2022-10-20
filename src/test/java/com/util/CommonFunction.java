@@ -119,10 +119,10 @@ public class CommonFunction extends BasePage {
 				.getText().trim();
 		if (tabProjectDetails.contains("Project Details")) {
 			System.out.println("User can navigate to the Project details !!!");
-			ReportsClass.logStat(Status.PASS, "User can navigate to the Project details !!!");
+			log("User can navigate to the Project details !!!", Status.PASS);
 		} else {
 			System.out.println("User cannot see the option in Menu !!!");
-			ReportsClass.logStat(Status.FAIL, "User cannot see the option in Menu !!!");
+			log("User cannot see the option in Menu !!!", Status.FAIL);
 		}
 		Assert.assertTrue(tabProjectDetails.contains("Project Details"), "User cannot see the option in Menu !!!");
 	}
@@ -155,12 +155,10 @@ public class CommonFunction extends BasePage {
 		}
 		//util.waitUntilElementDisplay(btnUnArchieve);
 		if(util.isElementPresent(btnUnArchieve)){
-			System.out.println("UnArchieve Present !!!");
-			ReportsClass.logStat(Status.PASS, "UnArchieve Present !!!");
+			log("UnArchieve Present !!!", Status.PASS);
 		}
 		else {
-			System.out.println("UnArchieve not Present !!!");
-			ReportsClass.logStat(Status.FAIL, "UnArchieve not Present !!!");
+			log("UnArchieve not Present !!!", Status.FAIL);
 		}
 }
 	public void clickOnSaveButton() {

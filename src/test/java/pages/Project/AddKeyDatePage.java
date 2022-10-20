@@ -10,7 +10,6 @@ import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 import com.base.Excel;
 import com.util.CommonFunction;
-import com.util.ReportsClass;
 import com.util.TestUtil;
 
 public class AddKeyDatePage extends BasePage {
@@ -101,11 +100,9 @@ public class AddKeyDatePage extends BasePage {
 		if (getEditRotaltyProcessMsg.contains("Changes saved successfully!")) {
 			System.out.println("Add Key Date Changes Successfully !!!");
 			log("STEP 2:  Add Key Date Changes Successfullys", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "Add Key Date Changes Successfully !!!");
 		} else {
 			System.out.println("Failed to Add Key Date !!!");
 			log("STEP 2: Failed to Add Key Date  ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "Failed to Add Key Date !!!");
 			throw new RuntimeException("Failed in step 2");
 		}
 		Assert.assertTrue(getEditRotaltyProcessMsg.contains("Changes saved successfully!"),

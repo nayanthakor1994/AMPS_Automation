@@ -37,11 +37,11 @@ public class AddOpertaingCompanyTest extends BasePage {
 		dashboardPage = new MyDashboardPage(driver);
 	}
 
-	@Test(dataProvider = "data-provider")
-	public void Add_Project_TC_08(String testName, String appURL, String env) throws Exception {
+	@Test()
+	public void Add_Project_TC_08() throws Exception {
 		log("TC08 : Add an operating company");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);
 		String testcaseName = "Add";
 		log("Data picked : " + testcaseName);

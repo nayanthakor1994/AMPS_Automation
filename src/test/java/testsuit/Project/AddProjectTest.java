@@ -30,13 +30,13 @@ public class AddProjectTest extends BasePage {
 		objAddProject = new AddProjectPage(driver);
 	}
 
-	@Test(dataProvider = "data-provider")
-	public void add_Project_TC_01(String testName, String appURL, String env) throws Exception {
+	@Test()
+	public void add_Project_TC_01() throws Exception {
 		log("TC01 : Add a Project");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);
-		String testcaseName = "AddProject" + env;
+		String testcaseName = "AddProject" + environment;
 		log("Data picked : " + testcaseName);
 		log("navigating to create new Project");
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectInformation,

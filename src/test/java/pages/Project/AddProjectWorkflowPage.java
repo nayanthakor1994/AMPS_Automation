@@ -120,11 +120,15 @@ public class AddProjectWorkflowPage extends BasePage {
 	}
 
 	public void selectCategory(String value) {
-		util.selectValueFromDropdown2(value, drpCategory);
+		if(util.isElementPresent(drpCategory)) {
+			util.selectValueFromDropdown2(value, drpCategory);
+		}
 	}
 
 	public void setDescription(String value) {
-		util.inputText(description, value);
+		if(util.isElementPresent(description)) {
+			util.inputText(description, value);
+		}
 	}
 
 	public void uploadFile() {

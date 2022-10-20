@@ -11,8 +11,6 @@ import com.base.Excel;
 import com.util.CommonFunction;
 import com.util.TestUtil;
 
-import com.util.ReportsClass;
-
 public class AddProjectPage extends BasePage {
 	TestUtil util;
 	CommonFunction commonFunction;
@@ -65,21 +63,17 @@ public class AddProjectPage extends BasePage {
 
 		if (getProjectCodeSummary.equals(getStrProjectCode)) {
 			System.out.println("Project Code Matched !!!");
-			ReportsClass.logStat(Status.PASS, "Project Code Matched !!!");
 			log("STEP 11: Project Code Matched !!!", Status.PASS);
 		} else {
 			System.out.println("Project Code not Matched");
 			log("STEP 11: Project Code not Matched", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "Project Code not Matched");
 		}
 		if (getProjectNameSummary.equals(getStrProjectName)) {
 			System.out.println("Project Name Matched !!!");
 			log("STEP 11: Project Name Matched !!!", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "Project Name Matched !!!");
 		} else {
 			System.out.println("Project Name not Matched");
 			log("STEP 11: Project Name not Matched", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "Project Name not Matched");
 		}
 
 	}
@@ -155,11 +149,9 @@ public class AddProjectPage extends BasePage {
 		util.click(archieveOk);
 
 		if (util.isElementPresent(btnUnArchieveDot)) {
-			System.out.println("UnArchieve Present !!!");
-			ReportsClass.logStat(Status.PASS, "UnArchieve Present !!!");
+			log("UnArchieve Present !!!", Status.PASS);
 		} else {
-			System.out.println("UnArchieve not Present !!!");
-			ReportsClass.logStat(Status.FAIL, "UnArchieve not Present !!!");
+			log("UnArchieve not Present !!!", Status.FAIL);
 		}
 	}
 
@@ -168,7 +160,6 @@ public class AddProjectPage extends BasePage {
 			commonFunction.navigateToProjectDeails();
 			log("STEP 1: User can navigate to the Project details", Status.PASS);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log("STEP 1: User cannot see the option in Menu ", Status.FAIL);
 			throw new RuntimeException("Failed in step 1");
 		}

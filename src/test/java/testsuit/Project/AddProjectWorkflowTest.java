@@ -39,14 +39,14 @@ public class AddProjectWorkflowTest extends BasePage {
 		dashboardPage = new MyDashboardPage(driver);
 	}
 
-	@Test(dataProvider = "data-provider")
-	public void Add_Project_TC_09(String testName, String appURL, String env) throws Exception {
+	@Test()
+	public void Add_Project_TC_09() throws Exception {
 		System.out.println("");
 		log("TC09 : Add a Project workflow");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);
-		String testcaseName = "ProjectApproval" + env;
+		String testcaseName = "ProjectApproval" + environment;
 		log("Data picked : " + testcaseName);
 		log("Nevigate to Add Workflow");
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectApproval,

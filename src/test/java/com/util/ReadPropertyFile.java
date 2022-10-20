@@ -6,7 +6,6 @@ import java.util.Properties;
 
 public class ReadPropertyFile {
 	Properties configProperty;
-	Properties dataProperty;
 
 	public ReadPropertyFile() {
 		File src =  new File(System.getProperty("user.dir") + "/config.properties");
@@ -18,8 +17,8 @@ public class ReadPropertyFile {
 			configProperty.load(fis);
 
 //			FileInputStream fis1 = new FileInputStream(src1);
-//			dataProperty = new Properties();
-//			dataProperty.load(fis1);
+//			configProperty = new Properties();
+//			configProperty.load(fis1);
 		} catch (Exception e) {
 			System.out.println("Exception is" + e.getMessage());
 		}
@@ -51,31 +50,31 @@ public class ReadPropertyFile {
 
 	// Get AltAmps URL
 	public String getAltAmpsURL() {
-		String altAmpsURL = dataProperty.getProperty("ALT_AMPS_URL");
+		String altAmpsURL = configProperty.getProperty("ALT_AMPS_URL");
 		return altAmpsURL;
 	}
 	
 	// Get DOT AMPS URL
 	public String getDotAMPSURL(){
-		String dotAMPSURL = dataProperty.getProperty("DOT_AMPS_URL");
+		String dotAMPSURL = configProperty.getProperty("DOT_AMPS_URL");
 		return dotAMPSURL;
 	}
 
 	// Get ROW AMPS URL
 	public String getRowAMPSURL(){
-		String rowAMPSURL = dataProperty.getProperty("ROW_AMPS_URL");
+		String rowAMPSURL = configProperty.getProperty("ROW_AMPS_URL");
 		return rowAMPSURL;
 	}
 	
 	// Get AltAMPS Username
 	public String getAltAmpsUsername() {
-		String altAmpsUserName = dataProperty.getProperty("ALT_ADMIN_ROLE_UNAME");
+		String altAmpsUserName = configProperty.getProperty("ALT_ADMIN_ROLE_UNAME");
 		return altAmpsUserName;
 	}
 
 	// Get Password
 	public String getPassword() {
-		String altAmpsPassword = dataProperty.getProperty("PASSWORD");
+		String altAmpsPassword = configProperty.getProperty("PASSWORD");
 		return altAmpsPassword;
 	}
 	
@@ -86,26 +85,31 @@ public class ReadPropertyFile {
 		return excelSheet;
 	}
 	
+	public String getExcelFileName(){
+		String sheetOne = configProperty.getProperty("excel_file");
+		return sheetOne;
+	}
+	
 	// Get Sheet One
 	public String getSheetOne(){
-		String sheetOne = dataProperty.getProperty("SHEET_ONE");
+		String sheetOne = configProperty.getProperty("SHEET_ONE");
 		return sheetOne;
 	}
 	
 	// Get Sheet Two
 	public String getSheetTwo(){
-		String sheetTwo = dataProperty.getProperty("SHEET_TWO");
+		String sheetTwo = configProperty.getProperty("SHEET_TWO");
 		return sheetTwo;
 	}
 	
 	// Get Sheet Three
 	public String getSheetThree(){
-		String sheetThree = dataProperty.getProperty("SHEET_THREE");
+		String sheetThree = configProperty.getProperty("SHEET_THREE");
 		return sheetThree;
 	}
 	
 	public String getCountryStateSheet() {
-		String sheetThree = dataProperty.getProperty("CountryState");
+		String sheetThree = configProperty.getProperty("CountryState");
 		return sheetThree;
 	}
 	public String getCurrectExcelFile(){

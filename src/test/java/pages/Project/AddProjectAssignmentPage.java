@@ -9,7 +9,6 @@ import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 import com.base.Excel;
 import com.util.CommonFunction;
-import com.util.ReportsClass;
 import com.util.TestUtil;
 
 public class AddProjectAssignmentPage extends BasePage {
@@ -131,10 +130,8 @@ public class AddProjectAssignmentPage extends BasePage {
 		Thread.sleep(5000);
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.SelectRole)))) {
 			log("STEP 2: ProjectAssignment is added sucessfully", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "ProjectAssignment is added sucessfully !!!");
 		} else {
 			log("STEP 2: ProjectAssignment is not added sucessfully ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "ProjectAssignment is not added sucessfully !!!");
 			throw new RuntimeException("Failed in step 2");
 		}
 
@@ -162,10 +159,8 @@ public class AddProjectAssignmentPage extends BasePage {
 		Thread.sleep(5000);
 		if (util.isElementPresent(String.format(tableValue, map.get(Excel.EditRole)))) {
 			log("STEP 5: User can navigate to the Project details", Status.PASS);
-			ReportsClass.logStat(Status.PASS, "ProjectAssignment is Edit sucessfully !!!");
 		} else {
 			log("STEP 5: ProjectAssignment is not added sucessfully ", Status.FAIL);
-			ReportsClass.logStat(Status.FAIL, "ProjectAssignment is not Edit sucessfully !!!");
 			throw new RuntimeException("Failed in step 5");
 		}
 
