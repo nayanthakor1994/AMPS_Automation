@@ -49,7 +49,7 @@ public class AddProjectAssignmentTest extends BasePage {
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectAssignment,
 				testcaseName);
 		commonFunction.navigateToProjectDeails();
-		AssignmentPage.addProjectAssignment(map);
+		AssignmentPage.addProjectAssignment(map,testcaseName);
 		AssignmentPage.UpdateProjectAssignment(map);
 
 	}

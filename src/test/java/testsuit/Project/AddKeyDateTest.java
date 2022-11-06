@@ -38,7 +38,7 @@ public class AddKeyDateTest extends BasePage {
 	@Test()
 	public void Add_a_Key_Date_TC_06() throws Exception {
 		log("TC06 : Add a Key Date");
-		navigateToApplication(appURL);
+	navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);
 		String testcaseName = "AddKey" + environment;
@@ -47,7 +47,7 @@ public class AddKeyDateTest extends BasePage {
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.KeyDate, testcaseName);
 		log("navigating to Add Key Date");
 		commonFunction.navigateToProjectDeails();
-		objKeyDate.addKeyDate(map);
+		objKeyDate.addKeyDate(map,testcaseName);
 
 	}
 

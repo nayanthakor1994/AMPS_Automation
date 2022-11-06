@@ -36,7 +36,7 @@ public class AddKeyDatePage extends BasePage {
 
 	By successMessage = By.xpath("*//div//span[contains(text(),'Changes saved successfully!')]");
 
-	public void clickProjectSchedule() {
+	public void clickProjectSchedule(String TestCaseName) {
 		try {
 			util.click(btnProjectSchedule);
 		} catch (Exception e) {
@@ -77,9 +77,14 @@ public class AddKeyDatePage extends BasePage {
 	
 	//a[normalize-space()='Project Schedule' or normalize-space()='Project Key Dates (Milestones)']//following-sibling::div//following::table[contains(@id,'PRJKEYDATES_radYALGridControl_ctl00')]/..
 	
-	public void addKeyDate(Map<String, String> map) {
+	public void addKeyDate(Map<String, String> map,String TestcaseName) {
 		// TODO Auto-generated method stub
-		clickProjectSchedule();
+		if (TestcaseName.equals("AddKeyDOT")) {
+			util.click(btnProjectScheduleDOT);
+		} else {
+			util.click(btnProjectSchedule);
+		}
+		//clickProjectSchedule(String TestcaseName);
 		try {
 			editPrjectSchecule();
 			log("STEP 1:  The panel fields displays", Status.PASS);

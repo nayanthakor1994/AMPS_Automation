@@ -81,6 +81,13 @@ public class AddProjectWorkflowPage extends BasePage {
 			"//*[normalize-space()='List of Tract:']/../following-sibling::tr//input[@id='idManageApproval_Tract_Agreement_Input']");
 	By drpListOfTrackClose = By.xpath(
 			"//*[normalize-space()='List of Tract:']/../following-sibling::tr//a[contains(@id,'Tract_Agreement_Arrow')]");
+	
+	By drpListofLeases = By.xpath(
+			"//*[normalize-space()='List of Leases:']/../following::div[@id='idManageApproval_Lease_Association']");
+	By drpListofLeasesClose = By.xpath(
+			"//*[normalize-space()='List of Leases:']/../following-sibling::tr//a[@id='idManageApproval_Lease_Association_Arrow']");
+	
+	
 	By btnGoProject = By.xpath("//input[@id='idManageApproval_btnGo']");
 	By btnAddListOfTract = By.xpath("//input[@id='idManageApproval_btnAddApprovalAssociation']");
 	By btnRefreshListTract = By.xpath(
@@ -185,6 +192,13 @@ public class AddProjectWorkflowPage extends BasePage {
 		util.selectValueFromDropdown(drpListOfTrack, value);
 		util.click(drpListOfTrackClose);
 	}
+	public void selectListOfLeases(String value) {
+		util.selectValueFromDropdown(drpListofLeases, value);
+		util.click(drpListofLeasesClose);
+	}
+	
+	
+	
 
 	public void clickOnListOfTract() {
 		util.click(btnAddListOfTract);
@@ -392,10 +406,11 @@ public class AddProjectWorkflowPage extends BasePage {
 
 		try {
 			selectListOfTrack(map.get(Excel.ListOfTrack));
-			clickOnListOfTract();
 			Thread.sleep(5000);
+			selectListOfLeases(map.get(Excel.ListOfLeases));
 			refreshListOfTract();
 			Thread.sleep(5000);
+			clickOnListOfTract();
 			Assert.assertEquals(getListOfTractMessage(), "Requested association created successfully",
 					"Success message is mismatch");
 			log("STEP 20: Select a Tract list from the DD and click on Add ", Status.PASS);
@@ -403,6 +418,25 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 20: Select a Tract list from the DD and click on Add ", Status.FAIL);
 			throw new RuntimeException("Failed in step 18");
 		}
+		
+//		try {
+//			selectListOfLeases(map.get(Excel.ListOfTrack));
+//			Thread.sleep(5000);
+//			selectListOfLeases(map.get(Excel.ListOfLeases));
+//			Thread.sleep(5000);
+//			clickOnListOfTract();
+//			Thread.sleep(5000);
+//			refreshListOfTract();
+//			Thread.sleep(5000);
+//			Assert.assertEquals(getListOfTractMessage(), "Requested association created successfully",
+//					"Success message is mismatch");
+//			log("STEP 20: Select a Tract list from the DD and click on Add ", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 20: Select a Tract list from the DD and click on Add ", Status.FAIL);
+//			throw new RuntimeException("Failed in step 18");
+//		}
+		
+		
 		if (isAllSteps) {
 			try {
 				deleteListOfTract();

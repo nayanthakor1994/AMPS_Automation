@@ -63,7 +63,7 @@ public class TestUtil extends BasePage {
 	public void click(By xpath) {
 		try {
 			waitUntilElementDisplay(xpath);
-			getElement(Condition.isClickable, xpath, 30).click();
+			getElement(Condition.isClickable, xpath, 50).click();
 		} catch (Exception e) {
 			try {
 				JavascriptExecutor executor = (JavascriptExecutor) driver;
@@ -71,6 +71,16 @@ public class TestUtil extends BasePage {
 			} catch (Exception e1) {
 				throw new RuntimeException("Not able to click on element");
 			}
+		}
+	}
+	
+	public void dummyWait(int seconds) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+//		ExtentTestManager.info("dummy waiting for " +seconds+ " seconds");
+		try {
+			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text()='dummywait']")));
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
@@ -199,7 +209,8 @@ public class TestUtil extends BasePage {
 		return isPresent;
 	}
 
-	public boolean isElementPresent(String locator) {
+	public boolean isElementPresent(String locator) throws InterruptedException {
+		Thread.sleep(10000);
 		boolean isPresent = false;
 		try {
 			isPresent = driver.findElement(By.xpath(locator)).isDisplayed();
@@ -255,7 +266,7 @@ public class TestUtil extends BasePage {
 	public void waitUntilElementDisplay(By locator) {
 		try {
 			System.out.println("Waiting for : " + locator);
-			getElement(Condition.isDisplayed, locator, 20);
+			getElement(Condition.isDisplayed, locator, 30);
 		} catch (Exception e) {
 			System.out.println("Element not present");
 			throw e;
@@ -290,6 +301,7 @@ public class TestUtil extends BasePage {
 
 	public void waitForWebElementToBePresent(By locator) {
 		scrollToElement(locator);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 
@@ -434,6 +446,11 @@ public class TestUtil extends BasePage {
 		Actions act = new Actions(driver);
 		act.sendKeys(Keys.ENTER).build().perform();
 	}
+	public void pressEscapkey() {
+		Actions act = new Actions(driver);
+		act.sendKeys(Keys.ESCAPE).build().perform();
+	}
+	
 
 	/**
 	 * This method will scroll down or up to element
@@ -605,6 +622,7 @@ public class TestUtil extends BasePage {
 	}
 
 	public void selectValueFromDropdown(By locator, String value) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		String drpSelectName = "//ul//li[normalize-space()='"+value+"']";
 		try {
 			waitFor(1000);

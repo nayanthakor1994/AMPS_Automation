@@ -30,7 +30,7 @@ public class AddProjectPage extends BasePage {
 	By btnSave = By.xpath("//input[contains(@id,'btnSaveProject')]");
 	By btnArchieve = By.xpath("//input[@id='ctl00_ConPHRightTop_radPrjPanels_i0_i0_OBJPROJECTINFO_btnArchive']");
 	By drpTemporaryRow = By.xpath("//input[contains(@name,'yalTempROWWidth$radYALDropDownList')]");
-	By drpPermanentRow = By.xpath("//input[contains(@name,'yalPermROWWidth_radYALDropDownList')]");
+	By drpPermanentRow = By.xpath("//input[contains(@name,'yalPermROWWidth$radYALDropDownList')]");
 	By drpUnitRow = By.xpath("//input[contains(@name,'PERMROW_WIDTH_UNIT$radYALDropDownList')]");
 
 	By archieveOk = By.xpath("//a[contains(@onClick,'confirm')][1]");
@@ -50,6 +50,12 @@ public class AddProjectPage extends BasePage {
 	By btnUnArchieveDot = By
 			.xpath("//input[@name='ctl00$ConPHRightTop$PRDT_UC$radPrjPanels$i0$i0$OBJPROJECTINFO$btnUnarchive']");
 
+	
+	By clickOnStatus = By.xpath("//div[@id='ctl00_ConPHRightTop_PRDT_UC_radPrjPanels_i0_i0_OBJPROJECTINFO_yddtProjectStatus_RadDropDownTree1']");
+	By addStatus = By.xpath("(//input[@value='Filtering...'])[1]");
+	By selectStatus = By.xpath("");
+	By closeStatus = By.xpath("//div[@id='ctl00_ConPHRightTop_PRDT_UC_radPrjPanels_i0_i0_OBJPROJECTINFO_yddtProjectStatus_RadDropDownTree1']//span[@class='rddtIcon']");
+	
 	public void verifySummaryALT() {
 		String getStrProjectCode = driver
 				.findElement(By.xpath("(//input[contains(@id,'OBJPROJECTINFO_radPrjNum')])[1]")).getAttribute("value");
@@ -84,23 +90,24 @@ public class AddProjectPage extends BasePage {
 
 	public void setProjectName(String value) {
 		if (!commonFunction.checkNA(value))
+		//	util.selectValueFromDropdown(txtProjectName, value);
 			util.inputText(txtProjectName, value);
 	}
 
 	public void setProjectType(String value) {
 		if (!commonFunction.checkNA(value))
-			util.inputText(drpProjectType, value);
+			util.selectValueFromDropdown(drpProjectType, value);
 		util.pressENTERkey();
 	}
 
 	public void setAbbreviation(String value) {
 		if (!commonFunction.checkNA(value))
-			util.inputText(txtAbbreviation, value);
+			util.selectValueFromDropdown(txtAbbreviation, value);
 	}
 
 	public void setArea(String value) throws InterruptedException {
 		if (!commonFunction.checkNA(value))
-			util.inputText(drpArea, value);
+			util.selectValueFromDropdown(drpArea, value);
 		util.waitFor(1000);
 		util.pressENTERkey();
 
@@ -108,35 +115,48 @@ public class AddProjectPage extends BasePage {
 
 	public void setClient(String value) {
 		if (!commonFunction.checkNA(value))
-			util.inputText(drpClient, value);
+			util.selectValueFromDropdown(drpClient, value);
 		util.pressENTERkey();
 
 	}
 
 	public void setProjectStatus(String value) {
 		if (!commonFunction.checkNA(value))
-			util.inputText(drpProjectStatus, value);
+			util.selectValueFromDropdown(drpProjectStatus, value);
 		util.pressENTERkey();
 
+	}
+	
+	public void setProjectStatusROW(String value) {
+		if (!commonFunction.checkNA(value)) {
+			util.click(clickOnStatus);
+			util.inputText(addStatus, value);
+			By selectStatus = By.xpath("//em[contains(text(),'"+value+"')]");
+			util.click(selectStatus);
+		//	util.click(closeStatus);
+			//By selectAgent = By.xpath("//em[contains(text(),'"+value+"')]/../../span[@class='rtUnchecked']");
+			//util.click(selectAgent);
+			//util.click(closeStatus);
+		}
 	}
 
 	public void setTemporaryROW(String value) {
 		if (!commonFunction.checkNA(value))
-			util.inputText(drpTemporaryRow, value);
+			util.selectValueFromDropdown(drpTemporaryRow, value);
 		util.pressENTERkey();
 
 	}
 
 	public void setPermanentROW(String value) {
 		if (!commonFunction.checkNA(value))
-			util.inputText(drpPermanentRow, value);
+			util.selectValueFromDropdown(drpPermanentRow, value);
 		util.pressENTERkey();
 
 	}
 
 	public void setUnit(String value) {
 		if (!commonFunction.checkNA(value))
-			util.inputText(drpUnitRow, value);
+			util.selectValueFromDropdown(drpUnitRow, value);
 		util.pressENTERkey();
 	}
 
@@ -155,7 +175,7 @@ public class AddProjectPage extends BasePage {
 		}
 	}
 
-	public void addProjectInformation(Map<String, String> map) throws InterruptedException {
+	public void addProjectInformation(Map<String, String> map,String testCaseName) throws InterruptedException {
 		try {
 			commonFunction.navigateToProjectDeails();
 			log("STEP 1: User can navigate to the Project details", Status.PASS);
@@ -212,13 +232,26 @@ public class AddProjectPage extends BasePage {
 			log(" User cannot Client value displays in the field ", Status.FAIL);
 			throw new RuntimeException("Failed in step 8");
 		}
-		try {
-			setProjectStatus(map.get(Excel.ProjectStatus));
-			log( "Added ProjectStatus value displays in the field", Status.PASS);
-		} catch (Exception e) {
-			log("User cannot ProjectStatus value displays in the field ", Status.FAIL);
-			throw new RuntimeException("Failed in step 9");
+		if(testCaseName.equals("AddProjectROW")) {
+			try {
+				setProjectStatusROW(map.get(Excel.ProjectStatus));
+				log( "Added ProjectStatus value displays in the field", Status.PASS);
+			} catch (Exception e) {
+				log("User cannot ProjectStatus value displays in the field ", Status.FAIL);
+				throw new RuntimeException("Failed in step 9");
+			}
 		}
+		else {
+			try {
+				setProjectStatus(map.get(Excel.ProjectStatus));
+				log( "Added ProjectStatus value displays in the field", Status.PASS);
+			} catch (Exception e) {
+				log("User cannot ProjectStatus value displays in the field ", Status.FAIL);
+				throw new RuntimeException("Failed in step 9");
+			}
+			
+		}
+		
 		try {
 			setTemporaryROW(map.get(Excel.TemporaryROW));
 			log("Added TemporaryROW value displays in the field", Status.PASS);

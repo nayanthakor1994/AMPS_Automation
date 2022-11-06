@@ -42,14 +42,14 @@ public class AddProjectStateCountryPage extends BasePage {
 	public void setState(String state) throws InterruptedException {
 		Thread.sleep(2000);
 	//	util.selectValueFromDropdown2(state, drpState);
-		util.inputText(drpState, state);
+		util.selectValueFromDropdown(drpState, state);
 		util.pressENTERkey();
 	}
 
 	public void setCountry(String country) throws InterruptedException {
 		Thread.sleep(2000);
 		//util.selectValueFromDropdown2(country, drpCountry);
-		util.inputText(drpCountry, country);
+		util.selectValueFromDropdown(drpCountry, country);
 		util.pressENTERkey();
 	}
 
@@ -84,7 +84,7 @@ public class AddProjectStateCountryPage extends BasePage {
 			log("STEP 2: Added state is not displayed in the field", Status.FAIL);
 			throw new RuntimeException("Failed in step 2 ");
 		}
-		Thread.sleep(2000);
+		util.dummyWait(10);
 		try {
 			setCountry(map.get("CountryName"));
 			log("STEP 3: County added diplays in the column field", Status.PASS);
@@ -99,6 +99,7 @@ public class AddProjectStateCountryPage extends BasePage {
 			log("STEP 4: Added values does  not displayed in the grid", Status.FAIL);
 			throw new RuntimeException("Failed in step 4 ");
 		}
+		util.dummyWait(10);
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
 			log(" State and Country Information message displyed", Status.PASS);
@@ -115,9 +116,10 @@ public class AddProjectStateCountryPage extends BasePage {
 		}
 	}
 
-	public void updateStateAndContryInformation(Map<String, String> map) {
+	public void updateStateAndContryInformation(Map<String, String> map) throws InterruptedException {
 		util.waitUntilElementDisplay(btnEdit);
 		util.click(btnEdit);
+		util.dummyWait(10);
 		try {
 			updateState(map.get("EditStateName"));
 			log("update value diplays in the field     ", Status.PASS);
@@ -133,18 +135,20 @@ public class AddProjectStateCountryPage extends BasePage {
 			//log("STEP 1: Project states and County information panel is not available", Status.FAIL);
 			// e.printStackTrace();
 		}
-		util.waitFor(2000);
+		util.dummyWait(10);
 		try {
 			util.click(btnUpdateCountry);
+			util.dummyWait(10);
 			log("Click On update", Status.PASS);
 		} catch (Exception e) {
 			log("Upate button not clicable", Status.FAIL);
 			throw new RuntimeException("Upate button not clicable ");
 		}
+		util.dummyWait(10);
 		util.waitUntilElementDisappear(btnUpdateCountry);
 		String countryName = util.getText(tableCountryName);
 		String stateName = util.getText(tableStateName);
-
+		util.dummyWait(10);
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Changes saved successfully!");
 		Assert.assertEquals(countryName, map.get("EditCountryName"), "Verify country name");
 		Assert.assertEquals(stateName, map.get("EditCountryAlias"), "Verify state name");
@@ -168,21 +172,23 @@ public class AddProjectStateCountryPage extends BasePage {
 		}
 
 		// Delete updated country-state
+		util.dummyWait(10);
 		util.waitUntilElementDisplay(btnDeleteSTCT);
 		try {
 			util.click(btnDeleteSTCT);
+			util.dummyWait(10);
 		} catch (Exception e) {
 		}
 
-		util.waitFor(2000);
+		util.dummyWait(5);
 		util.click(deleteOk);
-		util.waitFor(2000);
+		util.dummyWait(10);
 
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
-			log("STEP 1: State and Country Information is deleted sucessfully", Status.PASS);
+			log("STEP 7: State and Country Information is deleted sucessfully", Status.PASS);
 		} else {
-			log("STEP 1: State and Country Information is not deleted sucessfully", Status.FAIL);
+			log("STEP 7: State and Country Information is not deleted sucessfully", Status.FAIL);
 			throw new RuntimeException("State and Country Information is not deleted sucessfully ");
 		}
 

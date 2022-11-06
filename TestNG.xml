@@ -8,48 +8,43 @@
 		<parameter name="env" value="ALT" />
 		<classes>
 			<class name="testsuit.Project.AddProjectTest" />
-			<class name="testsuit.Project.AddProjectPermitTest" />
+			<class name="testsuit.Project.AddProjectStateCountryTest" />
 			<class name="testsuit.Project.UpdateProjectSettingAndMaintanceTest" />
-			<class name="testsuit.Project.AddInterconnectionInformationTest" />
 			<class name="testsuit.Project.AddProjectAssignmentTest" />
-			<class name="testsuit.Project.AddOpertaingCompanyTest" />
 			<class name="testsuit.Project.AddKeyDateTest" />
+			<class name="testsuit.Project.AddProjectPermitTest" />
 			<class name="testsuit.Project.AddProjectWorkflowTest" />
-			<class name="testsuit.Project.AddKeyDateTest" />
 		</classes>
 	</test>
-	
+<!-- 
 	<test name="Testcases_DOT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="DOT" />
 		<classes>
-			<class name="testsuit.Project.AddProjectTest" />
-			<class name="testsuit.Project.AddProjectPermitTest" />
-			<class name="testsuit.Project.UpdateProjectSettingAndMaintanceTest" />
-			<class name="testsuit.Project.AddInterconnectionInformationTest" />
 			<class name="testsuit.Project.AddProjectAssignmentTest" />
-			<class name="testsuit.Project.AddOpertaingCompanyTest" />
-			<class name="testsuit.Project.AddKeyDateTest" />
+			<class name="testsuit.Project.AddProjectTest" />
 			<class name="testsuit.Project.AddProjectWorkflowTest" />
 			<class name="testsuit.Project.AddKeyDateTest" />
+
 		</classes>
+
 	</test>
-	
-	<test name="Testcases_ROW">
+-->
+	<!-- <test name="Testcases_ROW">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ROW" />
 		<classes>
-			<class name="testsuit.Project.AddProjectTest" />
 			<class name="testsuit.Project.AddProjectPermitTest" />
-			<class name="testsuit.Project.UpdateProjectSettingAndMaintanceTest" />
-			<class name="testsuit.Project.AddInterconnectionInformationTest" />
+			<class name="testsuit.Project.AddKeyDateTest" />
+			<class name="testsuit.Project.AddProjectTest" />
 			<class name="testsuit.Project.AddProjectAssignmentTest" />
 			<class name="testsuit.Project.AddOpertaingCompanyTest" />
-			<class name="testsuit.Project.AddKeyDateTest" />
 			<class name="testsuit.Project.AddProjectWorkflowTest" />
-			<class name="testsuit.Project.AddKeyDateTest" />
+
 		</classes>
+
 	</test>
+	-->
 
 
 </suite>

@@ -41,7 +41,7 @@ public class AddProjectTest extends BasePage {
 		log("navigating to create new Project");
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectInformation,
 				testcaseName);
-		objAddProject.addProjectInformation(map);
+		objAddProject.addProjectInformation(map,testcaseName);
 	}
 
 	@DataProvider(name = "data-provider")

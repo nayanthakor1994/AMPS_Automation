@@ -87,7 +87,7 @@ public class AddInterconnectionInformationPage extends BasePage {
 
 	By deleteOk = By.xpath("//a[contains(@onClick,'confirm')]//span[text()='OK']");
 
-	public void addInterconnectionInformation(Map<String, String> map) {
+	public void addInterconnectionInformation(Map<String, String> map) throws InterruptedException {
 		commonFunction.navigateToProjectDeails();
 		util.waitUntilElementDisplay(tabInterconnectionInformation);
 		util.click(tabInterconnectionInformation);
@@ -145,7 +145,7 @@ public class AddInterconnectionInformationPage extends BasePage {
 
 	}
 
-	public void updateInterconnectionInformation(Map<String, String> map) {
+	public void updateInterconnectionInformation(Map<String, String> map) throws InterruptedException {
 		By viewEditBtn = By.xpath(String.format(editInterconnection, map.get("EditInterconnection Grid")));
 		util.waitUntilElementDisplay(viewEditBtn);
 		try {

@@ -50,7 +50,7 @@ public class AddProjectPermitTest extends BasePage {
 		commonFunction.navigateToProjectDeails();
 		projectPermit.addProjectPermit(map);
 		projectPermit.updateProjectPermit(map);
-		// projectPermit.addDocument(map);
+		projectPermit.addDocument(map);
 		projectPermit.deletProjectPermit(map);
 	}
 

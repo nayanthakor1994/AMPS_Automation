@@ -59,6 +59,7 @@ public class Excel {
 	public static final String DocCategory = "DocCategory";
 	public static final String DocComments = "DocComments";
 	public static final String ListOfTrack = "ListOfTrack";
+	public static final String ListOfLeases = "ListOfLeases";
 	
 	/**
 	 * Add column names for Add Key Date
